@@ -5,9 +5,15 @@ import BlogListSidebar from "@/components/Blog/BlogListSidebar";
 import BlogData from "@/components/Blog/blogData";
 import { Blog } from "@/types/blog";
 
-// Define the params type for clarity
+// Define the params type
 interface BlogParams {
   slug: string;
+}
+
+// Define the full props type for the page
+interface BlogPageProps {
+  params: BlogParams; // Plain object, not a Promise, due to generateStaticParams
+  searchParams?: { [key: string]: string | string[] | undefined }; // Optional query params
 }
 
 // Generate static params for SSG
@@ -21,10 +27,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: BlogParams | Promise<BlogParams>;
+  params: BlogParams; // Plain object, not a Promise
 }): Promise<Metadata> {
-  const resolvedParams = await params; // Await params in case it's a Promise
-  const blog = BlogData.find((b) => b._id.toString() === resolvedParams.slug);
+  const blog = BlogData.find((b) => b._id.toString() === params.slug);
   if (!blog) {
     return {
       title: "Blog Not Found",
@@ -38,9 +43,8 @@ export async function generateMetadata({
 }
 
 // Page component
-const SingleBlogPage = async ({ params }: { params: BlogParams | Promise<BlogParams> }) => {
-  const resolvedParams = await params; // Await params in case it's a Promise
-  const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === resolvedParams.slug);
+const SingleBlogPage = async ({ params }: BlogPageProps) => {
+  const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === params.slug);
 
   if (!blog) {
     return (
