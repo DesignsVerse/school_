@@ -1,4 +1,15 @@
-// import { Metadata } from "next";
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default page
+
 // import Image from "next/image";
 // import SharePost from "@/components/Blog/SharePost";
 // import BlogListSidebar from "@/components/Blog/BlogListSidebar";
