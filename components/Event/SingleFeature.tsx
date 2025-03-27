@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import { Feature } from "@/types/feature";
+import { Feature } from "@/types/event";
 
 interface SingleFeatureProps {
   feature: Feature;

@@ -1,10 +1,10 @@
-import { Feature } from "@/types/feature";
+import { Feature } from "@/types/event";
 
 
 
 
 
-const featuresData: Feature[] = [
+const eventData: Feature[] = [
   {
     id: 1,
     category: "Music",
@@ -79,4 +79,4 @@ const featuresData: Feature[] = [
   },
 ];
 
-export default featuresData;
+export default eventData;

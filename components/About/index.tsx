@@ -102,7 +102,7 @@ const About: React.FC = () => {
 
             {/* About More Button */}
             <a
-              href="#"
+              href="/about"
               className="inline-block rounded-full bg-orange-500 px-6 py-2.5 text-white font-medium hover:bg-orange-600 transition duration-300"
             >
               About More
@@ -142,27 +142,7 @@ const About: React.FC = () => {
         </div>
       </div>
 
-      {/* Go To Top Button */}
-      <button
-        onClick={handleScrollToTop}
-        className="fixed bottom-10 right-10 bg-orange-500 text-white px-4 py-2 rounded-full transform rotate-90 flex items-center gap-2 hover:bg-orange-600 transition duration-300"
-      >
-        <span className="transform -rotate-90">Go To Top</span>
-        <svg
-          className="w-5 h-5 transform -rotate-90"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 15l7-7 7 7"
-          />
-        </svg>
-      </button>
+      
     </section>
   );
 };

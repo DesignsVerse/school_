@@ -1,16 +1,7 @@
-// components/AboutUsSection.tsx
 import Image from "next/image";
 import Link from "next/link";
 
-type AboutUsSectionProps = {
-  title?: string;          // Main heading text
-  breadcrumbPath?: string; // Last part of breadcrumb
-};
-
-const SectionHeader = ({
-  title = "About Us",
-  breadcrumbPath = "About Us",
-}: AboutUsSectionProps) => {
+const AboutUsSection = () => {
   return (
     <section className="py-16 bg-gradient-to-r from-blue-50 via-purple-50 to-white">
       <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
@@ -26,13 +17,13 @@ const SectionHeader = ({
                   </Link>
                 </li>
                 <li className="text-gray-500">/</li>
-                <li className="text-gray-500">{breadcrumbPath}</li>
+                <li className="text-gray-500">About Us</li>
               </ol>
             </nav>
 
             {/* Main Heading */}
             <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-              {title}
+              About Us
             </h1>
           </div>
 
@@ -45,7 +36,7 @@ const SectionHeader = ({
               </div>
               {/* Image */}
               <Image
-                src="/images/about-us-person.png"
+                src="/images/about-us-person.png" // Replace with your image path
                 alt="Person studying"
                 width={400}
                 height={400}
@@ -59,4 +50,4 @@ const SectionHeader = ({
   );
 };
 
-export default SectionHeader;
+export default AboutUsSection;

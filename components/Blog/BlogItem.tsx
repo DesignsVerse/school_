@@ -1,46 +1,53 @@
-"use client";
-import { Blog } from "@/types/blog";
-import { motion } from "framer-motion";
+// BlogItem.tsx
 import Image from "next/image";
 import Link from "next/link";
+import { Blog } from "@/types/blog";
 
 const BlogItem = ({ blog }: { blog: Blog }) => {
-  const { mainImage, title, metadata } = blog;
+  const { title, description, image, category, link } = blog;
 
   return (
-    <>
-      <motion.div
-        variants={{
-          hidden: {
-            opacity: 0,
-            y: -20,
-          },
-
-          visible: {
-            opacity: 1,
-            y: 0,
-          },
-        }}
-        initial="hidden"
-        whileInView="visible"
-        transition={{ duration: 1, delay: 0.5 }}
-        viewport={{ once: true }}
-        className="animate_top rounded-lg bg-white p-4 pb-9 shadow-solid-8 dark:bg-blacksection"
-      >
-        <Link href={`/blog/`} className="relative block aspect-[368/239]">
-          <Image src={mainImage} alt={title} fill />
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform transform hover:scale-105">
+      <div className="relative w-full h-48">
+        <Image
+          src={image}
+          alt={title}
+          layout="fill"
+          objectFit="cover"
+          className="rounded-t-lg"
+        />
+      </div>
+      <div className="p-6">
+        <span className="inline-block bg-pink-100 text-pink-600 dark:bg-pink-900 dark:text-pink-300 text-xs font-semibold px-3 py-1 rounded-full mb-4">
+          {category || "Uncategorized"}
+        </span>
+        <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+          {title}
+        </h3>
+        <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+          {description}
+        </p>
+        <Link href={link}>
+          <span className="text-orange-500 font-semibold text-sm flex items-center gap-2 hover:text-orange-600 transition">
+            Read More
+            <svg
+              className="h-4 w-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </span>
         </Link>
-
-        <div className="px-4">
-          <h3 className="mb-3.5 mt-7.5 line-clamp-2 inline-block text-lg font-medium text-black duration-300 hover:text-primary dark:text-white dark:hover:text-primary xl:text-itemtitle2">
-            <Link href={`/blog/blog-details`}>
-              {`${title.slice(0, 40)}...`}
-            </Link>
-          </h3>
-          <p className="line-clamp-3">{metadata}</p>
-        </div>
-      </motion.div>
-    </>
+      </div>
+    </div>
   );
 };
 

@@ -67,27 +67,7 @@ const Categories: React.FC = () => {
         </div>
       </div>
 
-      {/* To Top Button */}
-      <button
-        onClick={handleScrollToTop}
-        className="fixed bottom-10 right-10 bg-orange-500 text-white px-4 py-2 rounded-full transform rotate-90 flex items-center gap-2 hover:bg-orange-600 transition duration-300"
-      >
-        <span className="transform -rotate-90">To Top</span>
-        <svg
-          className="w-5 h-5 transform -rotate-90"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M5 15l7-7 7 7"
-          />
-        </svg>
-      </button>
+      
     </section>
   );
 };

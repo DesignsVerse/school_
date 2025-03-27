@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function FunFact() {
+export default function Course() {
   return (
     <section className="text-center py-12 px-4 bg-gray-50">
       <p className="text-blue-500 font-semibold uppercase tracking-wide">
