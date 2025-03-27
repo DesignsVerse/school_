@@ -10,12 +10,6 @@ interface BlogParams {
   slug: string;
 }
 
-// Define the full props type for the page
-interface BlogPageProps {
-  params: BlogParams; // Plain object, not a Promise, due to generateStaticParams
-  searchParams?: { [key: string]: string | string[] | undefined }; // Optional query params
-}
-
 // Generate static params for SSG
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({
@@ -27,7 +21,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: {
-  params: BlogParams; // Plain object, not a Promise
+  params: BlogParams;
 }): Promise<Metadata> {
   const blog = BlogData.find((b) => b._id.toString() === params.slug);
   if (!blog) {
@@ -43,7 +37,7 @@ export async function generateMetadata({
 }
 
 // Page component
-const SingleBlogPage = async ({ params }: BlogPageProps) => {
+const SingleBlogPage = ({ params }: { params: BlogParams }) => {
   const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === params.slug);
 
   if (!blog) {
