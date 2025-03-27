@@ -1,4 +1,3 @@
-// app/(site)/blog/[slug]/page.tsx
 import { Metadata } from "next";
 import Image from "next/image";
 import SharePost from "@/components/Blog/SharePost";
@@ -6,14 +5,26 @@ import BlogListSidebar from "@/components/Blog/BlogListSidebar";
 import BlogData from "@/components/Blog/blogData";
 import { Blog } from "@/types/blog";
 
+// Define the params type for clarity
+interface BlogParams {
+  slug: string;
+}
+
+// Generate static params for SSG
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({
     slug: blog._id.toString(), // Use _id as the slug
   }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const blog = BlogData.find((b) => b._id.toString() === params.slug);
+// Metadata generation
+export async function generateMetadata({
+  params,
+}: {
+  params: BlogParams | Promise<BlogParams>;
+}): Promise<Metadata> {
+  const resolvedParams = await params; // Await params in case it's a Promise
+  const blog = BlogData.find((b) => b._id.toString() === resolvedParams.slug);
   if (!blog) {
     return {
       title: "Blog Not Found",
@@ -26,8 +37,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
-  const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === params.slug);
+// Page component
+const SingleBlogPage = async ({ params }: { params: BlogParams | Promise<BlogParams> }) => {
+  const resolvedParams = await params; // Await params in case it's a Promise
+  const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === resolvedParams.slug);
 
   if (!blog) {
     return (
@@ -48,7 +61,7 @@ const SingleBlogPage = async ({ params }: { params: { slug: string } }) => {
     <section className="pb-20 pt-35 lg:pb-25 lg:pt-45 xl:pb-30 xl:pt-50">
       <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
         <div className="flex flex-col-reverse gap-7.5 lg:flex-row xl:gap-12.5">
-          <div className=",LG:w-2/3">
+          <div className="lg:w-2/3">
             <div className="animate_top rounded-md border border-stroke bg-white p-7.5 shadow-solid-13 dark:border-strokedark dark:bg-blacksection md:p-10">
               <div className="mb-10 w-full overflow-hidden">
                 <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
