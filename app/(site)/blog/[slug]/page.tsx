@@ -5,24 +5,21 @@ import BlogListSidebar from "@/components/Blog/BlogListSidebar";
 import BlogData from "@/components/Blog/blogData";
 import { Blog } from "@/types/blog";
 
-// Define the params type
-interface BlogParams {
-  slug: string;
+interface PageProps {
+  params: { slug: string };
 }
 
 // Generate static params for SSG
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({
-    slug: blog._id.toString(), // Use _id as the slug
+    slug: blog._id.toString(),
   }));
 }
 
 // Metadata generation
 export async function generateMetadata({
   params,
-}: {
-  params: BlogParams;
-}): Promise<Metadata> {
+}: PageProps): Promise<Metadata> {
   const blog = BlogData.find((b) => b._id.toString() === params.slug);
   if (!blog) {
     return {
@@ -36,9 +33,9 @@ export async function generateMetadata({
   };
 }
 
-// Page component
-const SingleBlogPage = ({ params }: { params: BlogParams }) => {
-  const blog: Blog | undefined = BlogData.find((b) => b._id.toString() === params.slug);
+// Page component with type assertion
+const SingleBlogPage = ({ params }: PageProps) => {
+  const blog = BlogData.find((b) => b._id.toString() === params.slug);
 
   if (!blog) {
     return (
@@ -101,6 +98,6 @@ const SingleBlogPage = ({ params }: { params: BlogParams }) => {
       </div>
     </section>
   );
-};
+} 
 
 export default SingleBlogPage;
