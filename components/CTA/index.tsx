@@ -1,39 +1,115 @@
 "use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const CTA: React.FC = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.2,
+      },
+    },
+  };
+
+  const imageVariants = {
+    hidden: { x: -50, opacity: 0 },
+    visible: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.8,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut",
+      },
+    },
+  };
+
+  const buttonVariants = {
+    hidden: { scale: 0.8, opacity: 0 },
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: {
+        duration: 0.5,
+        ease: "backOut",
+      },
+    },
+  };
+
   return (
-    <section className="px-4 py-20 md:px-8 lg:py-25 xl:py-30 2xl:px-0">
-      <div className="mx-auto max-w-c-1390 bg-blue-600 rounded-lg flex flex-wrap md:flex-nowrap items-center">
+    <section ref={ref} className="px-4 py-20 md:px-8 2xl:px-0">
+      <motion.div
+        className="mx-auto max-w-c-1390 bg-blue-600 rounded-lg flex flex-col md:flex-row items-center gap-8 p-6"
+        variants={containerVariants}
+        initial="hidden"
+        animate={inView ? "visible" : "hidden"}
+      >
         {/* Left Side: Image */}
-        <div className="w-full md:w-1/2 p-6">
-          <div className="relative bg-white rounded-lg p-4">
+        <motion.div 
+          className="w-full md:w-[500px]"
+          variants={imageVariants}
+        >
+          <div className="relative bg-white rounded-lg w-full h-[300px] overflow-hidden">
             <Image
-              src="/images.jpg" // Replace with your image path
+              src="/images.jpg"
               alt="Students and teacher"
-              width={500}
-              height={300}
-              className="rounded-lg border-4 border-orange-500 w-full h-auto"
+              fill
+              className="object-cover"
+              priority
             />
           </div>
-        </div>
+        </motion.div>
 
         {/* Right Side: Text and Button */}
-        <div className="w-full md:w-1/2 p-6 flex flex-col justify-center">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Study Off Flexibly
-          </h2>
-          <p className="text-white text-base md:text-lg mb-6">
-            We can provide you with a handyan in Please input an email address down below school. Please input anand school. included the today.
-          </p>
-          <a
-            href="#"
-            className="inline-block rounded-full bg-orange-500 px-6 py-2.5 text-white font-medium hover:bg-orange-600 transition duration-300 self-start"
-          >
-            Read More
-          </a>
-        </div>
-      </div>
+        <motion.div 
+          className="w-full md:flex-1"
+          variants={containerVariants}
+        >
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <motion.div 
+              className="text-white"
+              variants={textVariants}
+            >
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">
+                Study Off Flexibly
+              </h2>
+              <p className="text-base md:text-lg">
+                We can provide you with a reliable handyan in Please input an email address down below school. Please input anand school. included the today.
+              </p>
+            </motion.div>
+            
+            <motion.a
+              href="#"
+              className="rounded-full bg-orange-500 px-10 py-2.5 mr-0 md:mr-20 text-white font-medium hover:bg-orange-600 transition duration-300 whitespace-nowrap self-start md:self-center"
+              variants={buttonVariants}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              Read More
+            </motion.a>
+          </div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 };

@@ -68,7 +68,7 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
         </div>
         <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
-        <p className="text-gray-800 font-semibold">{price}</p>
+        {/* <p className="text-gray-800 font-semibold">{price}</p> */}
       </div>
     </div>
   );

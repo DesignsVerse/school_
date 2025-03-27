@@ -41,7 +41,7 @@ const TeamDetailsSection = ({ member }: TeamDetailsSectionProps) => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row items-center gap-12"
+          className="flex flex-col md:flex-row items-stretch gap-12" // Changed to items-stretch
         >
           {/* Left Side: Image with Hover Effect */}
           <motion.div
@@ -50,13 +50,16 @@ const TeamDetailsSection = ({ member }: TeamDetailsSectionProps) => {
             onHoverStart={() => setIsHovered(true)}
             onHoverEnd={() => setIsHovered(false)}
           >
-            <div className="relative overflow-hidden rounded-xl shadow-lg group">
+            <div className="relative h-full overflow-hidden rounded-xl shadow-lg group"> {/* Added h-full */}
               <Image
                 src={member.imageSrc}
                 alt={member.name}
                 width={300}
                 height={400}
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105" // Added w-full h-full
+                style={{
+                  minHeight: '100%' // Ensures it fills the container
+                }}
               />
               <motion.div
                 className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"

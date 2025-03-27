@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
+import { motion } from "framer-motion";
 
 const AdmissionForm = () => {
   const [formData, setFormData] = useState({
@@ -36,7 +37,6 @@ const AdmissionForm = () => {
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
-  // Handle input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
@@ -44,12 +44,10 @@ const AdmissionForm = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Handle date change
   const handleDateChange = (date: Date | null, name: string) => {
     setFormData((prev) => ({ ...prev, [name]: date }));
   };
 
-  // Handle file upload
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, field: string) => {
     const file = e.target.files?.[0] || null;
     if (field.startsWith("add_checklist_doc_")) {
@@ -66,7 +64,6 @@ const AdmissionForm = () => {
     }
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
     if (!formData.firstName) newErrors.firstName = "This field is required";
@@ -90,11 +87,10 @@ const AdmissionForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form Data:", formData); // Replace with API call
+      console.log("Form Data:", formData);
       alert("Form submitted successfully!");
     } else {
       alert("Please fill all required fields correctly.");
@@ -102,482 +98,503 @@ const AdmissionForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-6 font-[Verdana]">
-      <div className="w-full max-w-4xl">
-        {/* Header */}
-        <div className="bg-[#005670] text-white p-4 flex items-center justify-between">
-          <div className="flex items-center">
-            <Image
-              src="/images/logo/logo.png" // Replace with your logo
-              alt="School Logo"
-              width={80}
-              height={80}
-              className="w-auto h-20"
-            />
-            <h1 className="text-xl font-bold ml-4">Online Admission Enquiry</h1>
+    <div className="min-h-screen bg-gradient-to-br mt-10 from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8 font-sans">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-6xl mx-auto"
+      >
+        {/* Header Card */}
+        <div className="bg-gradient-to-r from-blue-700 to-teal-600 rounded-t-xl shadow-lg overflow-hidden">
+          <div className="p-6 flex flex-col md:flex-row items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="bg-white p-2 rounded-lg shadow-md">
+                <Image
+                  src="/images/logo/logo.png"
+                  alt="School Logo"
+                  width={80}
+                  height={80}
+                  className="w-16 h-16 object-contain"
+                />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold text-white">Online Admission Form</h1>
+                <p className="text-blue-100">Delhi Public School, Indore</p>
+              </div>
+            </div>
+            <div className="mt-4 md:mt-0">
+              <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
+                <p className="text-sm text-blue-50 font-medium">Academic Year 2023-24</p>
+                <p className="text-white font-bold">Admission Open</p>
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Form Container */}
-        <div className="bg-white p-6 shadow-md">
-          <form id="form1" onSubmit={handleSubmit} className="space-y-6">
-            {/* Student Details */}
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                First Name <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="firstName"
-                  value={formData.firstName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.firstName && <p className="text-red-600 text-sm">{errors.firstName}</p>}
+        <div className="bg-white rounded-b-xl shadow-lg overflow-hidden">
+          <form onSubmit={handleSubmit} className="p-6 md:p-8 space-y-8">
+            {/* Student Details Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.1 }}
+            >
+              <div className="flex items-center mb-6">
+                <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                <h2 className="text-xl font-bold text-gray-800">Student Details</h2>
               </div>
 
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Last Name <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.lastName && <p className="text-red-600 text-sm">{errors.lastName}</p>}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Personal Info */}
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      First Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="firstName"
+                      value={formData.firstName}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.firstName ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                    />
+                    {errors.firstName && <p className="mt-1 text-sm text-red-600">{errors.firstName}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Date of Birth <span className="text-red-500">*</span>
+                    </label>
+                    <DatePicker
+                      selected={formData.dob}
+                      onChange={(date) => handleDateChange(date, "dob")}
+                      dateFormat="dd-MM-yyyy"
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.dob ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                      maxDate={new Date()}
+                      showYearDropdown
+                      yearDropdownItemNumber={100}
+                      scrollableYearDropdown
+                      placeholderText="Select date"
+                    />
+                    {errors.dob && <p className="mt-1 text-sm text-red-600">{errors.dob}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Class Applying For <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="classApplyingFor"
+                      value={formData.classApplyingFor}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.classApplyingFor ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                    >
+                      <option value="">Select Class</option>
+                      {["Nursery", "KG-I", "KG-II", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"].map(
+                        (cls) => (
+                          <option key={cls} value={cls}>
+                            {cls}
+                          </option>
+                        )
+                      )}
+                    </select>
+                    {errors.classApplyingFor && (
+                      <p className="mt-1 text-sm text-red-600">{errors.classApplyingFor}</p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Contact Info */}
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Last Name <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="lastName"
+                      value={formData.lastName}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.lastName ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                    />
+                    {errors.lastName && <p className="mt-1 text-sm text-red-600">{errors.lastName}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Gender <span className="text-red-500">*</span>
+                    </label>
+                    <select
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.gender ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Others">Others</option>
+                    </select>
+                    {errors.gender && <p className="mt-1 text-sm text-red-600">{errors.gender}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Mobile Number <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="mobileNumber"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                      className={`w-full px-4 py-2 rounded-lg border ${errors.mobileNumber ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                    />
+                    {errors.mobileNumber && (
+                      <p className="mt-1 text-sm text-red-600">{errors.mobileNumber}</p>
+                    )}
+                  </div>
+                </div>
               </div>
 
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Date of Birth <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <DatePicker
-                  selected={formData.dob}
-                  onChange={(date) => handleDateChange(date, "dob")}
-                  dateFormat="dd-MM-yyyy"
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                  maxDate={new Date()}
-                  showYearDropdown
-                  yearDropdownItemNumber={100}
-                  scrollableYearDropdown
-                />
-                {errors.dob && <p className="text-red-600 text-sm">{errors.dob}</p>}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Gender <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <select
-                  name="gender"
-                  value={formData.gender}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                >
-                  <option value="">--- Select ---</option>
-                  <option value="Male">Male</option>
-                  <option value="Female">Female</option>
-                  <option value="Others">Others</option>
-                </select>
-                {errors.gender && <p className="text-red-600 text-sm">{errors.gender}</p>}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Class Applying For <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <select
-                  name="classApplyingFor"
-                  value={formData.classApplyingFor}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                >
-                  <option value="">--- Select ---</option>
-                  {["Nursery", "KG-I", "KG-II", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI", "XII"].map(
-                    (cls) => (
-                      <option key={cls} value={cls}>
-                        {cls}
-                      </option>
-                    )
-                  )}
-                </select>
-                {errors.classApplyingFor && (
-                  <p className="text-red-600 text-sm">{errors.classApplyingFor}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Mobile Number <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="tel"
-                  name="mobileNumber"
-                  value={formData.mobileNumber}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.mobileNumber && (
-                  <p className="text-red-600 text-sm">{errors.mobileNumber}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Email Id <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.email && <p className="text-red-600 text-sm">{errors.email}</p>}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Address <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
+              {/* Address */}
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Address <span className="text-red-500">*</span>
+                </label>
                 <textarea
                   name="address"
                   value={formData.address}
                   onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
                   rows={3}
+                  className={`w-full px-4 py-2 rounded-lg border ${errors.address ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
                 />
-                {errors.address && <p className="text-red-600 text-sm">{errors.address}</p>}
+                {errors.address && <p className="mt-1 text-sm text-red-600">{errors.address}</p>}
+              </div>
+            </motion.div>
+
+            {/* Parent Details Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.2 }}
+            >
+              <div className="flex items-center mb-6">
+                <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                <h2 className="text-xl font-bold text-gray-800">Parent Details</h2>
               </div>
 
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Father's Name <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="fatherName"
-                  value={formData.fatherName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.fatherName && (
-                  <p className="text-red-600 text-sm">{errors.fatherName}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Father's Mobile Number <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="tel"
-                  name="fatherMobile"
-                  value={formData.fatherMobile}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.fatherMobile && (
-                  <p className="text-red-600 text-sm">{errors.fatherMobile}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Mother's Name <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="motherName"
-                  value={formData.motherName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.motherName && (
-                  <p className="text-red-600 text-sm">{errors.motherName}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Mother's Mobile Number <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="tel"
-                  name="motherMobile"
-                  value={formData.motherMobile}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-                {errors.motherMobile && (
-                  <p className="text-red-600 text-sm">{errors.motherMobile}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Source of Enquiry
-              </div>
-              <div className="lg:col-span-3">
-                <select
-                  name="enquirySource"
-                  value={formData.enquirySource}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                >
-                  <option value="">--- Select ---</option>
-                  <option value="Newspaper">Newspaper</option>
-                  <option value="Website">Website</option>
-                  <option value="Friend">Friend</option>
-                  <option value="Others">Others</option>
-                </select>
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                If student is Ex. Dipsite from DPS Indore, kindly mention the Scholar No.
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="scholarNo"
-                  value={formData.scholarNo}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Guardian Name
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="text"
-                  name="guardianName"
-                  value={formData.guardianName}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Contact No.
-              </div>
-              <div className="lg:col-span-3">
-                <input
-                  type="tel"
-                  name="guardianContact"
-                  value={formData.guardianContact}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                />
-              </div>
-            </div>
-
-            {/* Undertaking Agreement */}
-            <div>
-              <div className="text-[#2e5b87] text-[14px] pt-10 text-left font-bold">
-                Undertaking Agreement
-              </div>
-              <hr className="style-three" />
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-4">
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                I agree to the below mentioned undertaking <span className="text-red-600">*</span>
-              </div>
-              <div className="lg:col-span-3">
-                <select
-                  name="undertaking"
-                  value={formData.undertaking}
-                  onChange={handleChange}
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                >
-                  <option value="">--- Select ---</option>
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </select>
-                {errors.undertaking && (
-                  <p className="text-red-600 text-sm">{errors.undertaking}</p>
-                )}
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Day Boarder/ Hosteller (BOYS ONLY)
-              </div>
-              <div className="lg:col-span-3 flex flex-col lg:flex-row gap-4">
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="boarding"
-                    value="Day Boarder"
-                    checked={formData.boarding === "Day Boarder"}
-                    onChange={handleChange}
-                    className="mr-2"
-                  />
-                  Day Boarder
-                </label>
-                <label className="flex items-center">
-                  <input
-                    type="radio"
-                    name="boarding"
-                    value="Hosteller (Boys Only)"
-                    checked={formData.boarding === "Hosteller (Boys Only)"}
-                    onChange={handleChange}
-                    className="mr-2"
-                  />
-                  Hosteller (Boys Only)
-                </label>
-              </div>
-
-              <div className="lg:col-span-1 text-sm font-bold text-gray-700 pt-2 text-left lg:text-right">
-                Interaction Scheduled on
-              </div>
-              <div className="lg:col-span-3">
-                <DatePicker
-                  selected={formData.interactionDate}
-                  onChange={(date) => handleDateChange(date, "interactionDate")}
-                  dateFormat="dd-MM-yyyy"
-                  className="w-full p-2 border border-[#ccc] text-sm"
-                  readOnly
-                />
-              </div>
-            </div>
-
-            {/* Upload Documents */}
-            <div>
-              <div className="text-[#2e5b87] text-[14px] pt-10 text-left font-bold">
-                UPLOAD DOCUMENTS
-              </div>
-              <hr className="style-three" />
-              <div className="pl-12 pt-4 space-y-6">
-                {[
-                  { id: "1", label: "Photo of Child", required: true },
-                  { id: "2", label: "Child's Aadhaar card", required: true },
-                  { id: "3", label: "Birth Certificate", required: true },
-                  { id: "4", label: "Certificate(s) for proficiency in Games, Co-curricular/outstanding achievements. (If any)" },
-                  { id: "5", label: "Mother's Aadhaar Card" },
-                  { id: "6", label: "Father's Aadhaar Card" },
-                  { id: "7", label: "SSSM ID" },
-                  { id: "8", label: "Address Proof" },
-                  { id: "9", label: "Father's ID Proof (Driving License/ Passport/ Voter ID/ Pan Card)" },
-                  { id: "10", label: "Previous Year's Marksheet" },
-                  { id: "11", label: "Fitness Certificate" },
-                  { id: "12", label: "Mother's ID Proof (Driving License/ Passport/ Voter ID/ Pan Card)" },
-                  { id: "13", label: "Caste Certificate" },
-                ].map((doc) => (
-                  <div key={doc.id}>
-                    <div className="text-sm font-bold">
-                      {doc.label} {doc.required && <span className="text-red-600">*</span>}
-                    </div>
-                    <input
-                      type="file"
-                      name={`add_checklist_doc_${doc.id}`}
-                      onChange={(e) => handleFileChange(e, `add_checklist_doc_${doc.id}`)}
-                      className="w-full p-2 text-sm"
-                    />
-                    {doc.required && errors[doc.label.split(" ")[0].toLowerCase()] && (
-                      <p className="text-red-600 text-sm">{errors[doc.label.split(" ")[0].toLowerCase()]}</p>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Upload Photo */}
-            <div>
-              <div className="text-[#2e5b87] text-[14px] pt-10 text-left font-bold">
-                Upload Photo
-              </div>
-              <hr className="style-three" />
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pt-4">
-                {["Student", "Father", "Mother"].map((type) => (
-                  <div key={type} className="text-center">
-                    <div className="text-sm font-bold pb-2">{type}</div>
-                    <div className="mb-2">
-                      <img
-                        height={170}
-                        width={160}
-                        src={formData.photos[type.toLowerCase()] ? URL.createObjectURL(formData.photos[type.toLowerCase()]!) : ""}
-                        alt={`${type} Photo`}
-                        className="mx-auto"
-                      />
-                    </div>
-                    <div className="text-sm">
-                      <a href="#" className="text-blue-600">
-                        Click Photo
-                      </a>{" "}
-                      or{" "}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Father's Details */}
+                <div className="bg-blue-50 rounded-xl p-4">
+                  <h3 className="text-lg font-semibold text-blue-800 mb-4">Father's Information</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Father's Name <span className="text-red-500">*</span>
+                      </label>
                       <input
-                        type="file"
-                        name={`${type.toLowerCase()}Photo`}
-                        onChange={(e) => handleFileChange(e, type.toLowerCase())}
-                        className="w-40 text-sm"
+                        type="text"
+                        name="fatherName"
+                        value={formData.fatherName}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-2 rounded-lg border ${errors.fatherName ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
                       />
+                      {errors.fatherName && (
+                        <p className="mt-1 text-sm text-red-600">{errors.fatherName}</p>
+                      )}
                     </div>
-                    <div className="text-sm mt-2">
-                      <a
-                        href="#"
-                        onClick={() =>
-                          setFormData((prev) => ({
-                            ...prev,
-                            photos: { ...prev.photos, [type.toLowerCase()]: null },
-                          }))
-                        }
-                        className="text-blue-600"
-                      >
-                        Remove
-                      </a>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Mobile Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="fatherMobile"
+                        value={formData.fatherMobile}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-2 rounded-lg border ${errors.fatherMobile ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                      />
+                      {errors.fatherMobile && (
+                        <p className="mt-1 text-sm text-red-600">{errors.fatherMobile}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Mother's Details */}
+                <div className="bg-pink-50 rounded-xl p-4">
+                  <h3 className="text-lg font-semibold text-pink-800 mb-4">Mother's Information</h3>
+                  <div className="space-y-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Mother's Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        name="motherName"
+                        value={formData.motherName}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-2 rounded-lg border ${errors.motherName ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                      />
+                      {errors.motherName && (
+                        <p className="mt-1 text-sm text-red-600">{errors.motherName}</p>
+                      )}
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Mobile Number <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="tel"
+                        name="motherMobile"
+                        value={formData.motherMobile}
+                        onChange={handleChange}
+                        className={`w-full px-4 py-2 rounded-lg border ${errors.motherMobile ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                      />
+                      {errors.motherMobile && (
+                        <p className="mt-1 text-sm text-red-600">{errors.motherMobile}</p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Additional Parent Info */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email <span className="text-red-500">*</span>
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className={`w-full px-4 py-2 rounded-lg border ${errors.email ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition`}
+                  />
+                  {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Source of Enquiry
+                  </label>
+                  <select
+                    name="enquirySource"
+                    value={formData.enquirySource}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                  >
+                    <option value="">Select Source</option>
+                    <option value="Newspaper">Newspaper</option>
+                    <option value="Website">Website</option>
+                    <option value="Friend">Friend</option>
+                    <option value="Others">Others</option>
+                  </select>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Documents Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+            >
+              <div className="flex items-center mb-6">
+                <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                <h2 className="text-xl font-bold text-gray-800">Required Documents</h2>
+              </div>
+
+              <div className="bg-gray-50 rounded-xl p-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {[
+                    { id: "1", label: "Photo of Child", required: true },
+                    { id: "2", label: "Child's Aadhaar card", required: true },
+                    { id: "3", label: "Birth Certificate", required: true },
+                    { id: "4", label: "Achievement Certificates (if any)" },
+                    { id: "5", label: "Mother's Aadhaar Card" },
+                    { id: "6", label: "Father's Aadhaar Card" },
+                  ].map((doc) => (
+                    <div key={doc.id} className="space-y-2">
+                      <label className="block text-sm font-medium text-gray-700">
+                        {doc.label} {doc.required && <span className="text-red-500">*</span>}
+                      </label>
+                      <div className="flex items-center space-x-2">
+                        <label className="flex-1">
+                          <div className={`w-full px-4 py-2 rounded-lg border ${errors[doc.id] ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition cursor-pointer bg-white`}>
+                            <input
+                              type="file"
+                              name={`add_checklist_doc_${doc.id}`}
+                              onChange={(e) => handleFileChange(e, `add_checklist_doc_${doc.id}`)}
+                              className="hidden"
+                            />
+                            <span className="text-gray-500">Choose file</span>
+                          </div>
+                        </label>
+                        {formData.documents[doc.id] && (
+                          <span className="text-sm text-green-600 flex items-center">
+                            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round"  strokeWidth="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                            Selected
+                          </span>
+                        )}
+                      </div>
+                      {doc.required && errors[doc.id] && (
+                        <p className="text-sm text-red-600">{errors[doc.id]}</p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Photo Upload Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+            >
+              <div className="flex items-center mb-6">
+                <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                <h2 className="text-xl font-bold text-gray-800">Upload Photographs</h2>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {["student", "father", "mother"].map((type) => (
+                  <div key={type} className="bg-white border border-gray-200 rounded-xl p-4 shadow-sm">
+                    <h3 className="text-lg font-semibold text-gray-800 mb-4 capitalize">{type}'s Photo</h3>
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="w-32 h-32 bg-gray-100 rounded-full overflow-hidden border-2 border-gray-300 flex items-center justify-center">
+                        {formData.photos[type] ? (
+                          <img
+                            src={URL.createObjectURL(formData.photos[type]!)}
+                            alt={`${type}'s photo`}
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round"  strokeWidth="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                          </svg>
+                        )}
+                      </div>
+                      <label className="w-full">
+                        <div className="px-4 py-2 bg-blue-600 text-white rounded-lg text-center cursor-pointer hover:bg-blue-700 transition">
+                          <input
+                            type="file"
+                            name={`${type}Photo`}
+                            onChange={(e) => handleFileChange(e, type)}
+                            className="hidden"
+                            accept="image/*"
+                          />
+                          Upload Photo
+                        </div>
+                      </label>
+                      {formData.photos[type] && (
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setFormData((prev) => ({
+                              ...prev,
+                              photos: { ...prev.photos, [type]: null },
+                            }))
+                          }
+                          className="text-sm text-red-600 hover:text-red-800"
+                        >
+                          Remove Photo
+                        </button>
+                      )}
                     </div>
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
 
-            {/* Undertaking */}
-            <div>
-              <div className="text-[#2e5b87] text-[14px] pt-10 text-left font-bold">
-                Undertaking
+            {/* Undertaking Section */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <div className="flex items-center mb-6">
+                <div className="w-2 h-8 bg-blue-600 rounded-full mr-3"></div>
+                <h2 className="text-xl font-bold text-gray-800">Undertaking Agreement</h2>
               </div>
-              <hr className="style-three" />
-              <div className="text-sm pl-8 pt-4">
-                <p><strong>UNDERTAKING/DECLARATION:</strong></p>
-                <ul className="list-disc pl-5">
-                  <li>I fully understand that the school, on accepting the registration of my ward, is not in any way bound to grant admission. I also understand that the decision of the school authorities regarding admission will be final and binding on me.</li>
-                  <li>I fully understand that Delhi Public School, Indore has the right to offer admission based on vacancy of seats.</li>
-                  <li>I hereby certify that the Date of Birth and spelling of name of my ward given in this form are true and correct and I shall not make any request for change.</li>
-                  <li>I undertake that the information / documents submitted in this form are true and correct and not misleading and no relevant information has been concealed. I understand that false or misleading information or withholding correct information may disqualify my ward for admission/education at this school.</li>
-                </ul>
-                <p className="mt-4"><strong>INSTRUCTIONS:</strong></p>
-                <ul className="list-disc pl-5">
-                  <li>Registration once completed for a particular year is <strong>non-transferable</strong> to any other year or to any other child.</li>
-                  <li>Issue of Registration Form does not Guarantee Admission.</li>
-                  <li>Please attach attested copy of Municipal Birth Certificate.</li>
-                  <li>Please attach copy of the attested Mark Sheet of previous class examination.</li>
-                  <li>Attach copy of certificates for proficiency in Games, Co-curricular / outstanding achievements. (If any)</li>
-                  <li>Incomplete registration form will not be accepted. It is mandatory to attach all enclosures as stated above.</li>
-                </ul>
-              </div>
-            </div>
 
-            {/* Submit Button */}
-            <div className="text-center mt-10">
-              <input
-                type="submit"
-                value="Submit Form"
-                className="bg-[#005670] text-white px-10 py-2 text-sm hover:bg-[#003d52] cursor-pointer"
-              />
-            </div>
+              <div className="bg-gray-50 rounded-xl p-6">
+                <div className="prose prose-sm max-w-none">
+                  <p className="font-semibold">UNDERTAKING/DECLARATION:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>I fully understand that the school, on accepting the registration of my ward, is not in any way bound to grant admission.</li>
+                    <li>I understand that the decision of the school authorities regarding admission will be final and binding on me.</li>
+                    <li>I hereby certify that the Date of Birth and spelling of name of my ward given in this form are true and correct.</li>
+                    <li>I undertake that the information / documents submitted in this form are true and correct.</li>
+                  </ul>
+
+                  <p className="font-semibold mt-6">INSTRUCTIONS:</p>
+                  <ul className="list-disc pl-5 space-y-2">
+                    <li>Registration once completed for a particular year is <strong>non-transferable</strong> to any other year or to any other child.</li>
+                    <li>Issue of Registration Form does not Guarantee Admission.</li>
+                    <li>Please attach attested copy of Municipal Birth Certificate.</li>
+                    <li>Attach copy of certificates for proficiency in Games, Co-curricular / outstanding achievements (if any).</li>
+                  </ul>
+                </div>
+
+                <div className="mt-6">
+                  <label className="flex items-start space-x-3">
+                    <input
+                      type="checkbox"
+                      name="undertaking"
+                      checked={formData.undertaking === "Yes"}
+                      onChange={(e) => handleChange({ ...e, target: { ...e.target, name: "undertaking", value: e.target.checked ? "Yes" : "No" } })}
+                      className="mt-1 h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    />
+                    <span className="text-sm text-gray-700">
+                      I agree to the above mentioned undertaking <span className="text-red-500">*</span>
+                    </span>
+                  </label>
+                  {errors.undertaking && (
+                    <p className="mt-1 text-sm text-red-600">{errors.undertaking}</p>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Submit Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6 }}
+              className="pt-6"
+            >
+              <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                <div className="text-sm text-gray-500">
+                  All fields marked with <span className="text-red-500">*</span> are mandatory
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  type="submit"
+                  className="px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                >
+                  Submit Application
+                </motion.button>
+              </div>
+            </motion.div>
 
             {/* Footer */}
-            <div className="text-center text-sm mt-4">
-              Powered by <a href="https://schoolpad.in/" target="_blank" className="text-blue-600">SchoolPad</a>
+            <div className="pt-8 text-center text-sm text-gray-500 border-t border-gray-200">
+              <p>© {new Date().getFullYear()} Delhi Public School, Indore. All rights reserved.</p>
+              <p className="mt-1">Powered by <a href="https://schoolpad.in/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">DesignsVerse</a></p>
             </div>
           </form>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

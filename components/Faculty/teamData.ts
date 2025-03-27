@@ -24,8 +24,7 @@ export type TeamMember = {
         { platform: "twitter", icon: "🐦" },
         { platform: "pinterest", icon: "📌" },
       ],
-      description:
-        "There are many variations of passages of Lorem Ipsum Fastby. There are many variations of passages of Lorem Ipsum Fastby we are the fast to mane injected humour, or randomised coved ceilings, are bound to ensue; and equal blame belongs can to be erwtwg mont be fao go not be hie best to those who through weakness. There are many variations of passages of Lorem Ipsum Fastby. There are many variations of passages of Lorem Ipsum Fastby we are the fast to mane injected humour, or randomised coved ceilings, are bound to ensue; and equal blame belongs can to be erwtwg mont.",
+      description:"",
       highlights: [
         "Business school’s Institut constructivism.",
         "Media in this school solution.",

@@ -10,7 +10,7 @@ export default function About() {
   return (
     <div>
       {/* Your existing header component goes here */}
-      <SectionHeader title="Contact Us" breadcrumbPath="Contact" />
+      <SectionHeader title="Contact Us" breadcrumbPath="Contact" imageAlt="" imageUrl="/images.jpg" />
       <CompleteEducationSection/>
       <ServicesSection/>
       <FAQ/>
