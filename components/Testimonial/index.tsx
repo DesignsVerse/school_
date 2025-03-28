@@ -1,8 +1,6 @@
 "use client";
-import SectionHeader from "../Common/SectionHeader";
 import { Autoplay, Pagination } from "swiper";
 import "swiper/css";
-import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
@@ -10,14 +8,14 @@ import { testimonialData } from "./testimonialData";
 
 const Testimonial = () => {
   return (
-    <section className="py-20 bg-white dark:bg-gray-900">
+    <section className="py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             What Our Students Say
           </h2>
-          <p className="mt-4 text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="mt-3 md:mt-4 text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-xl md:max-w-2xl mx-auto">
             Hear from our students about their learning experiences and success stories.
           </p>
         </div>
@@ -34,7 +32,7 @@ const Testimonial = () => {
           className="mx-auto"
         >
           <Swiper
-            spaceBetween={30}
+            spaceBetween={20} // Reduced spaceBetween for better fit on mobile
             slidesPerView={1}
             autoplay={{
               delay: 5000,
@@ -47,41 +45,41 @@ const Testimonial = () => {
             }}
             modules={[Autoplay, Pagination]}
             breakpoints={{
-              640: { slidesPerView: 1 },
-              768: { slidesPerView: 2 },
-              1024: { slidesPerView: 3 },
+              640: { slidesPerView: 1, spaceBetween: 20 },
+              768: { slidesPerView: 2, spaceBetween: 24 },
+              1024: { slidesPerView: 3, spaceBetween: 30 },
             }}
-            className="pb-16"
+            className="pb-12 md:pb-16"
           >
             {testimonialData.map((testimonial) => (
               <SwiperSlide key={testimonial.id}>
-                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 h-full mx-4 transition-all duration-300 hover:shadow-xl">
-                  <div className="flex items-center mb-6">
-                    <div className="w-16 h-16 rounded-full overflow-hidden border-4 border-white shadow-md">
+                <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 m-2 md:p-8 h-full transition-all duration-300 hover:shadow-xl">
+                  <div className="flex items-center mb-4 md:mb-6">
+                    <div className="w-14 h-14 md:w-16 md:h-16 rounded-full overflow-hidden border-4 border-white shadow-xl">
                       <img
                         src={testimonial.image}
                         alt={testimonial.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <div className="ml-4">
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                    <div className="ml-3 md:ml-4">
+                      <h3 className="text-base md:text-lg font-semibold text-gray-900 dark:text-white">
                         {testimonial.name}
                       </h3>
-                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                      <p className="text-xs md:text-sm text-gray-600 dark:text-gray-300">
                         {testimonial.designation}
                       </p>
                     </div>
                   </div>
-                  <p className="text-gray-700 dark:text-gray-300 mb-6">
+                  <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base mb-4 md:mb-6 line-clamp-4">
                     "{testimonial.content}"
                   </p>
-                  <div className="flex items-center">
+                  <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex text-yellow-400">
                       {[...Array(5)].map((_, i) => (
                         <svg
                           key={i}
-                          className={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                          className={`w-4 h-4 md:w-5 md:h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-300'}`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -89,7 +87,7 @@ const Testimonial = () => {
                         </svg>
                       ))}
                     </div>
-                    <span className="ml-2 text-sm text-gray-600 dark:text-gray-400">
+                    <span className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
                       {testimonial.course}
                     </span>
                   </div>
@@ -99,7 +97,7 @@ const Testimonial = () => {
           </Swiper>
 
           {/* Custom Pagination */}
-          <div className="testimonial-pagination flex justify-center mt-8 space-x-2" />
+          <div className="testimonial-pagination flex justify-center mt-4 md:mt-8 space-x-2" />
         </motion.div>
       </div>
     </section>

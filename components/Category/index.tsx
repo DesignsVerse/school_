@@ -6,42 +6,41 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 
 const Categories = () => {
-  // Updated color palette with darker circle colors
   const colorPairs = [
     { 
       bg: "bg-blue-50", 
       border: "border-l-blue-500",
       text: "text-blue-600",
       hoverBg: "bg-blue-100",
-      circle: "bg-blue-700" // Darker blue for circle
+      circle: "bg-blue-700"
     },
     { 
       bg: "bg-emerald-50", 
       border: "border-l-emerald-500",
       text: "text-emerald-600",
       hoverBg: "bg-emerald-100",
-      circle: "bg-emerald-700" // Darker emerald for circle
+      circle: "bg-emerald-700"
     },
     { 
       bg: "bg-amber-50", 
       border: "border-l-amber-500",
       text: "text-amber-600",
       hoverBg: "bg-amber-100",
-      circle: "bg-amber-700" // Darker amber for circle
+      circle: "bg-amber-700"
     },
     { 
       bg: "bg-violet-50", 
       border: "border-l-violet-500",
       text: "text-violet-600",
       hoverBg: "bg-violet-100",
-      circle: "bg-violet-700" // Darker violet for circle
+      circle: "bg-violet-700"
     },
     { 
       bg: "bg-rose-50", 
       border: "border-l-rose-500",
       text: "text-rose-600",
       hoverBg: "bg-rose-100",
-      circle: "bg-rose-700" // Darker rose for circle
+      circle: "bg-rose-700"
     },
   ];
 
@@ -74,37 +73,37 @@ const Categories = () => {
   };
 
   return (
-    <section className="py-16 bg-gray-50 relative">
-      <div className="mx-auto max-w-c-1390 px-4 md:px-8 2xl:px-0">
-        {/* Enhanced heading section */}
+    <section className="py-12 md:py-16 xl:py-20 bg-gray-50 relative">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Heading Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-10 md:mb-16"
         >
-          <div className="inline-flex items-center justify-center px-4 py-2 bg-blue-100 rounded-full mb-4">
-            <span className="text-blue-600 font-medium text-sm uppercase tracking-wider">
+          <div className="inline-flex items-center justify-center px-3 py-1 md:px-4 md:py-2 bg-blue-100 rounded-full mb-3 md:mb-4">
+            <span className="text-blue-600 font-medium text-xs md:text-sm uppercase tracking-wider">
               Our Course Categories
             </span>
           </div>
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4">
             Discover <span className="text-blue-600">Creative</span> Learning Paths
           </h2>
-          <div className="w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6"></div>
-          <p className="text-gray-600 max-w-2xl mx-auto text-lg">
+          <div className="w-16 md:w-20 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-4 md:mb-6"></div>
+          <p className="text-gray-600 max-w-xl md:max-w-2xl mx-auto text-sm md:text-lg">
             Explore our specialized courses designed to help you achieve your learning goals.
           </p>
         </motion.div>
 
-        {/* Enhanced Category Grid */}
+        {/* Category Grid */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
         >
           {categoryData.map((category: Category, index: number) => {
             const { bg, border, text, hoverBg, circle } = colorPairs[index % colorPairs.length];
@@ -117,7 +116,7 @@ const Categories = () => {
                 whileHover="hover"
                 onMouseEnter={() => setHoveredItem(index)}
                 onMouseLeave={() => setHoveredItem(null)}
-                className={`relative overflow-hidden rounded-xl ${bg} ${border} border-l-4 h-52 transition-all duration-300 group`}
+                className={`relative overflow-hidden rounded-xl ${bg} ${border} border-l-4 h-48 sm:h-52 md:h-56 transition-all duration-300 group`}
               >
                 {/* Background overlay on hover */}
                 {category.hoverImage && (
@@ -132,52 +131,54 @@ const Categories = () => {
                   </div>
                 )}
 
-                {/* Updated Circular Icon with darker color */}
+                {/* Circular Icon */}
                 <motion.div
-                  className={`absolute -left-8 top-1/2 -translate-y-1/2 w-24 h-24 rounded-full ${circle} flex items-center justify-center z-10 shadow-md`}
-                  animate={{
-                    x: isHovered ? 10 : 0,
-                    scale: isHovered ? 1.1 : 1,
-                  }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <div className="relative w-12 h-12">
-                    <Image
-                      src={category.icon}
-                      alt={category.title}
-                      fill
-                      className="filter brightness-0 invert transition-all duration-300"
-                    />
-                  </div>
-                </motion.div>
+  className={`absolute -left-6 md:-left-8 top-1/2 -translate-y-1/2 w-20 h-20 md:w-24 md:h-24 rounded-full ${circle} flex items-center justify-center z-10 shadow-md`}
+  animate={{
+    x: isHovered ? 10 : 0,
+    scale: isHovered ? 1.1 : 1,
+  }}
+  transition={{ type: "spring", stiffness: 300 }}
+>
+  <div className="relative w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+    <svg
+      className="w-full h-full text-white"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-1 9H9V9h10v2zm-4 4H9v-2h6v2zm4-8H9V5h10v2z" />
+    </svg>
+  </div>
+</motion.div>
 
-                {/* Enhanced Content */}
-                <div className="relative h-full pl-20 pr-6 flex flex-col justify-center z-10">
+                {/* Content */}
+                <div className="relative h-full pl-16 md:pl-20 pr-4 md:pr-6 flex flex-col justify-center z-10">
                   <motion.h3
-                    className={`text-xl font-bold mb-2 ${isHovered ? 'text-white' : 'text-gray-900'}`}
+                    className={`text-lg md:text-xl font-bold mb-1 md:mb-2 ${isHovered ? 'text-white' : 'text-gray-900'}`}
                     animate={{ x: isHovered ? 5 : 0 }}
                   >
                     {category.title}
                   </motion.h3>
                   <motion.p
-                    className={`text-sm ${isHovered ? 'text-gray-200' : 'text-gray-600'}`}
+                    className={`text-xs md:text-sm ${isHovered ? 'text-gray-200' : 'text-gray-600'} line-clamp-2`}
                     animate={{ x: isHovered ? 5 : 0 }}
                   >
                     {category.description}
                   </motion.p>
                   
-                  {/* Enhanced Learn more button */}
+                  {/* Learn more button */}
                   <motion.div
-                    className="mt-4"
+                    className="mt-2 md:mt-4"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isHovered ? 1 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
                     <button
-                      className={`px-4 py-2 rounded-lg text-sm font-medium ${text.replace('text', 'bg')} text-white hover:opacity-90 transition flex items-center gap-2`}
+                      className={`px-3 py-1 md:px-4 md:py-2 rounded-lg text-xs md:text-sm font-medium ${text.replace('text', 'bg')} text-white hover:opacity-90 transition flex items-center gap-1 md:gap-2`}
                     >
                       Explore Courses
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3 md:h-4 md:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                       </svg>
                     </button>
@@ -190,7 +191,6 @@ const Categories = () => {
             );
           })}
         </motion.div>
-
       </div>
     </section>
   );

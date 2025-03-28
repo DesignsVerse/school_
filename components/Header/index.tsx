@@ -2,21 +2,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import Image from 'next/image';
 
 const menuData = [
   { title: "Home", path: "/" },
   { title: "About Us", path: "/about" },
   { title: "Faculty", path: "/faculty" },
   { title: "Blog", path: "/blog" },
-  { title: "Admission", path: "/admissionForm", },
+  { title: "Admission", path: "/admissionForm" },
   { title: "Contact", path: "/contact" },
 ];
 
 const Header = () => {
   const [navigationOpen, setNavigationOpen] = useState(false);
-  const [dropdownToggler, setDropdownToggler] = useState(false);
   const [stickyMenu, setStickyMenu] = useState(false);
-
   const pathUrl = usePathname();
 
   // Sticky menu
@@ -28,10 +27,26 @@ const Header = () => {
     }
   };
 
+  // Close menu on scroll
+  const handleScroll = () => {
+    if (navigationOpen) {
+      setNavigationOpen(false);
+    }
+  };
+
   useEffect(() => {
     window.addEventListener("scroll", handleStickyMenu);
-    return () => window.removeEventListener("scroll", handleStickyMenu);
-  }, []);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleStickyMenu);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [navigationOpen]);
+
+  // Close menu on link click
+  const handleLinkClick = () => {
+    setNavigationOpen(false);
+  };
 
   return (
     <header
@@ -40,11 +55,19 @@ const Header = () => {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-8">
-        {/* Logo */}
-        <div className="flex items-center">
-          <a href="/" className="flex items-center space-x-2">
-            <span className="text-2xl">🎓</span>
-            <span className="text-2xl font-bold text-gray-800">Eduor</span>
+        {/* Logo Section */}
+        <div className="flex flex-col items-center">
+          <a href="/" className="flex flex-col items-center">
+            <Image 
+              src="/images/logo/logo.png" 
+              alt="Eduor Logo" 
+              width={60} 
+              height={36}
+              className="ml-0 xl:ml-6"
+            />
+            <span className="hidden xl:block text-2xl font-bold text-gray-800 mt-2">
+              Bethel Sec. School
+            </span>
           </a>
         </div>
 
@@ -89,40 +112,39 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <div
-          className={`${
-            navigationOpen
-              ? "mt-4 flex flex-col rounded-md bg-white p-4 shadow-md xl:flex xl:flex-row xl:items-center xl:p-0 xl:shadow-none"
-              : "hidden xl:flex xl:items-center"
-          } w-full xl:w-auto`}
+          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 ease-in-out xl:static xl:h-auto xl:w-auto xl:bg-transparent xl:shadow-none xl:transform-none ${
+            navigationOpen ? "translate-x-0" : "translate-x-full xl:translate-x-0"
+          }`}
         >
-          <nav>
-  <ul className="flex flex-col gap-4 xl:flex-row xl:gap-8">
-    {menuData.map((menuItem, key) => (
-      <li key={key}>
-        <Link
-          href={menuItem.path || "#"}
-          className={
-            pathUrl === menuItem.path
-              ? "text-orange-500"
-              : "text-gray-600 hover:text-orange-500"
-          }
-        >
-          {menuItem.title}
-        </Link>
-      </li>
-    ))}
-  </ul>
-</nav>
-
-          {/* Learn More Button */}
-          <div className="mt-4 xl:ml-8 xl:mt-0">
-            <Link
-              href="/learn-more"
-              className="rounded-full bg-orange-500 px-6 py-2 text-white hover:bg-orange-600"
-            >
-              Learn More
-            </Link>
-          </div>
+          <nav className="pt-20 xl:pt-0">
+            <ul className="flex flex-col gap-4 p-4 xl:flex-row xl:gap-8 xl:p-0 xl:items-center">
+              {menuData.map((menuItem, key) => (
+                <li key={key}>
+                  <Link
+                    href={menuItem.path || "#"}
+                    onClick={handleLinkClick}
+                    className={
+                      pathUrl === menuItem.path
+                        ? "text-orange-500"
+                        : "text-gray-600 hover:text-orange-500"
+                    }
+                  >
+                    {menuItem.title}
+                  </Link>
+                </li>
+              ))}
+              {/* Call Now Button */}
+              <li className="p-4 xl:p-0">
+                <Link
+                  href="/call-now"
+                  onClick={handleLinkClick}
+                  className="rounded-full bg-orange-500 px-6 py-2 text-white hover:bg-orange-600"
+                >
+                  Call Now
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </div>
     </header>

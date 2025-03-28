@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import DatePicker from "react-datepicker";
 import { motion } from "framer-motion";
+import SectionHeader from "@/components/Common/SectionHeader";
 
 const AdmissionForm = () => {
   const [formData, setFormData] = useState({
@@ -98,6 +99,9 @@ const AdmissionForm = () => {
   };
 
   return (
+    <>
+    <SectionHeader title="Admission" breadcrumbPath="Admission" imageAlt="" imageUrl="/images.jpg" />
+  
     <div className="min-h-screen bg-gradient-to-br mt-10 from-gray-50 to-gray-100 py-8 px-4 sm:px-6 lg:px-8 font-sans">
       <motion.div 
         initial={{ opacity: 0, y: 20 }}
@@ -119,13 +123,13 @@ const AdmissionForm = () => {
                 />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">Online Admission Form</h1>
-                <p className="text-blue-100">Delhi Public School, Indore</p>
+                <h1 className="text-2xl font-bold text-white">Online Application Form</h1>
+                <p className="text-blue-100">Bethel Secondary School </p>
               </div>
             </div>
             <div className="mt-4 md:mt-0">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 text-center">
-                <p className="text-sm text-blue-50 font-medium">Academic Year 2023-24</p>
+                <p className="text-sm text-blue-50 font-medium">Academic Year 2025-26</p>
                 <p className="text-white font-bold">Admission Open</p>
               </div>
             </div>
@@ -589,13 +593,13 @@ const AdmissionForm = () => {
 
             {/* Footer */}
             <div className="pt-8 text-center text-sm text-gray-500 border-t border-gray-200">
-              <p>© {new Date().getFullYear()} Delhi Public School, Indore. All rights reserved.</p>
-              <p className="mt-1">Powered by <a href="https://schoolpad.in/" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">DesignsVerse</a></p>
+              <p>© {new Date().getFullYear()}2025 DesignsVerse. All rights reserved.</p>
             </div>
           </form>
         </div>
       </motion.div>
     </div>
+    </>
   );
 };
 
