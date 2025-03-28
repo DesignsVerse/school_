@@ -1,7 +1,6 @@
-// app/(site)/team/page.tsx
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react"; // Added useRef import
 import TeamDetailsSection from "./TeamDetailsSection";
 import TeamGridSection from "./TeamGridSection";
 import { teamMembers, TeamMember } from "./teamData";
@@ -11,13 +10,14 @@ export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<TeamMember>(
     teamMembers[0]
   );
+  // Added ref for scrolling
 
   const handleMemberClick = (member: TeamMember) => {
     setSelectedMember(member);
   };
 
   return (
-    <div>
+    <div > {/* Added ref to the container */}
       <TeamDetailsSection member={selectedMember} />
       <TeamGridSection
         members={teamMembers}

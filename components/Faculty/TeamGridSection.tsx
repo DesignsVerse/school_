@@ -6,20 +6,9 @@ import { useRef } from "react";
 type TeamGridSectionProps = {
   members: TeamMember[];
   onMemberClick: (member: TeamMember) => void;
-  scrollToRef: React.RefObject<HTMLDivElement>;
 };
 
-const TeamGridSection = ({ members, onMemberClick, scrollToRef }: TeamGridSectionProps) => {
-  const handleCardClick = (member: TeamMember) => {
-    onMemberClick(member);
-    if (scrollToRef.current) {
-      scrollToRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start"
-      });
-    }
-  };
-
+const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
   return (
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -52,7 +41,7 @@ const TeamGridSection = ({ members, onMemberClick, scrollToRef }: TeamGridSectio
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              onClick={() => handleCardClick(member)}
+              // onClick={() => handleCardClick(member)}
               whileHover={{ y: -5 }}
               className="cursor-pointer group"
             >
