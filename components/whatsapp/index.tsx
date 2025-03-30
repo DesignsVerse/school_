@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image'; // Import Next.js Image component
 
 interface WhatsAppToggleProps {
-  phoneNumber: string;
+  phoneNumber?: string;
   message?: string;
   position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
   showPopup?: boolean;
@@ -44,34 +44,27 @@ const WhatsAppToggle: React.FC<WhatsAppToggleProps> = ({
   };
 
   useEffect(() => {
-    // Show component with delay for better UX
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, 1000);
 
     return () => {
-      if (timer) clearTimeout(timer);
+      clearTimeout(timer);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
   }, []);
 
   const handleWhatsAppClick = () => {
-    // Clear any existing timeout
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
-    
-    // Trigger animation
     setIsAnimating(true);
     
-    // Encode message for URL
     const encodedMessage = encodeURIComponent(message);
     const whatsappUrl = `https://wa.me/${phoneNumber}${message ? `?text=${encodedMessage}` : ''}`;
     
-    // Open WhatsApp after animation completes
     timeoutRef.current = setTimeout(() => {
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
     }, 300);
     
-    // Reset animation
     timeoutRef.current = setTimeout(() => {
       setIsAnimating(false);
     }, 1000);
@@ -89,7 +82,6 @@ const WhatsAppToggle: React.FC<WhatsAppToggleProps> = ({
     }
   };
 
-  // Animation variants
   const animationVariants = {
     ping: 'animate-ping scale-110',
     pulse: 'animate-pulse scale-105',
@@ -140,9 +132,9 @@ const WhatsAppToggle: React.FC<WhatsAppToggleProps> = ({
           <Image 
             src={iconImage}
             alt="WhatsApp icon"
-            width={24} // Adjust as needed
-            height={24} // Adjust as needed
-            className="w-14 h-14 object-contain" // Adjust size as needed
+            width={24}
+            height={24}
+            className="w-14 h-14 object-contain"
           />
         </motion.button>
       </div>
