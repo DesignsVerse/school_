@@ -2,6 +2,7 @@
 import BlogItem from "./BlogItem";
 import BlogData from "./blogData";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const Blog = () => {
   return (
@@ -36,13 +37,16 @@ const Blog = () => {
       </div>
       
       <div className="text-center mt-15">
+       <Link href="/blog" passHref>
         <motion.button
+            
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="bg-black dark:bg-white text-white dark:text-black py-3.5 px-7.5 rounded-full font-medium hover:bg-opacity-90 transition-all duration-300"
         >
           View All Articles
         </motion.button>
+        </Link>
       </div>
     </section>
   );

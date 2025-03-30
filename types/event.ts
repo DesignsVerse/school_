@@ -1,5 +1,6 @@
 export interface Feature {
-  id: number;
+  id: string | number;
+  slug: string;  // Add slug field
   category: string;
   categoryColor: string;
   location: string;

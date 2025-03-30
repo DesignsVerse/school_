@@ -101,15 +101,14 @@ const About: React.FC = () => {
                 className="text-3xl md:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight"
                 variants={itemVariants}
               >
-                Discover Our Story: <span className="text-blue-600">Nurturing Growth</span>, Fostering Learning.
+                Shaping Futures: Encouraging Growth and Education at <span className="text-orange-500">Bethel Secondary School </span>
               </motion.h2>
               
               <motion.p 
                 className="text-lg text-gray-600 mb-8 leading-relaxed"
                 variants={itemVariants}
               >
-                Business tailored it design, management & support services business agency elit, sed do eiusmod tempor.
-              </motion.p>
+At Bethel Secondary School, we are dedicated to providing a comprehensive educational experience that emphasizes.              </motion.p>
 
               {/* Checklist */}
               <motion.ul 
@@ -117,11 +116,11 @@ const About: React.FC = () => {
                 variants={containerVariants}
               >
                 {[
-                  "Business school's Institut constructivism",
-                  "We give management school best",
-                  "Media in this school solution",
-                  "Innovative learning approaches",
-                  "Student-centered education philosophy"
+                  "Constructivist Learning Philosophy",
+                  "Student-Centered Education",
+                  "Innovative Learning Approaches",
+                  "Student-centered education philosophy",
+                  "Innovative learning approaches"
                 ].map((item, index) => (
                   <motion.li 
                     key={index} 

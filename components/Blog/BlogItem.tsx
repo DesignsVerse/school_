@@ -27,7 +27,7 @@ const BlogItem = ({ blog }: { blog: Blog }) => {
         <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
           {description}
         </p>
-        <Link href={link}>
+        <Link href={`/blog/${blog.slug}`}>
           <span className="text-orange-500 font-semibold text-sm flex items-center gap-2 hover:text-orange-600 transition">
             Read More
             <svg

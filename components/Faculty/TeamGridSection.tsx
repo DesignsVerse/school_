@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { TeamMember } from "./teamData";
-import { useRef } from "react";
 
 type TeamGridSectionProps = {
   members: TeamMember[];
@@ -13,7 +12,7 @@ const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
     <section className="py-16 bg-white dark:bg-gray-900">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="text-center mb-16">
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -41,7 +40,7 @@ const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
-              // onClick={() => handleCardClick(member)}
+              onClick={() => onMemberClick(member)} // Trigger the click handler
               whileHover={{ y: -5 }}
               className="cursor-pointer group"
             >
@@ -60,7 +59,7 @@ const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="p-6 flex-1 flex flex-col">
                   <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                     {member.name}
@@ -68,7 +67,7 @@ const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
                   <p className="text-blue-600 dark:text-blue-400 font-medium mb-3">
                     {member.role}
                   </p>
-                  
+
                   {member.socialLinks && (
                     <div className="mt-auto flex gap-3 pt-3">
                       {member.socialLinks.map((link, index) => (
@@ -76,7 +75,7 @@ const TeamGridSection = ({ members, onMemberClick }: TeamGridSectionProps) => {
                           key={index}
                           href="#"
                           className="text-gray-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors"
-                          onClick={(e) => e.stopPropagation()}
+                          onClick={(e) => e.stopPropagation()} // Prevent social link clicks from triggering card click
                         >
                           {link.icon}
                         </a>

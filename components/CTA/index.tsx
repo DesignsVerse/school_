@@ -91,11 +91,10 @@ const CTA: React.FC = () => {
               variants={textVariants}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-                Study Off Flexibly
+              Study Flexibly with <strong  className="text-orange-500">Bethel Secondary School</strong> 
               </h2>
               <p className="text-base md:text-lg">
-                We can provide you with a reliable handyan in Please input an email address down below school. Please input anand school. included the today.
-              </p>
+              We provide reliable and innovative learning solutions that inspire creativity and foster academic excellence for students of all ages.              </p>
             </motion.div>
             
             <motion.a
@@ -105,8 +104,7 @@ const CTA: React.FC = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              Read More
-            </motion.a>
+Get Started Today"            </motion.a>
           </div>
         </motion.div>
       </motion.div>

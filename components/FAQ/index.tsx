@@ -13,30 +13,30 @@ const FAQ: React.FC = () => {
 
   const accordionItems = [
     {
-      title: 'Maecenas facilisis erat id odio',
-      content: 'There are many variations of passages of psum available, but the majority have suffered alteration in some form, by injected humour, but the majority have suffered alteration.',
-      bgColor: 'bg-orange-500',
-      textColor: 'text-white',
-      icon: <FaCheckCircle className="text-white" />,
+      title: 'What grade levels does Bethel Secondary School serve?',
+      content: 'We offer education from Grade 1 through Grade 10, focusing on holistic development and academic excellence.',
+      bgColor: 'bg-white',
+      textColor: 'text-gray-800',
+      icon: <FaCheckCircle className="text-green-500" />,
     },
     {
-      title: 'Phasellus et vehicula nulla',
-      content: 'Content for Phasellus et vehicula nulla.',
+      title: 'What is the school educational philosophy ? ',
+      content: 'Our approach emphasizes student-centered learning, encouraging active participation and critical thinking to foster a lifelong love for learning.',
       icon: <FaCheckCircle className="text-green-500" />,
       bgColor: 'bg-white',
       textColor: 'text-gray-800',
     },
     {
-      title: 'Maecenas malesuada',
-      content: 'Content for Maecenas malesuada.',
-      icon: <FaTimesCircle className="text-red-500" />,
+      title: 'Are extracurricular activities available?',
+      content: 'Yes, we provide a variety of extracurricular programs, including sports, arts, and community service initiatives, to support well-rounded student development.',
+      icon: <FaCheckCircle className="text-green-500" />,
       bgColor: 'bg-white',
       textColor: 'text-gray-800',
     },
     {
-      title: 'Why you join our team',
-      content: 'Content for Why you join our team.',
-      icon: <FaInfoCircle className="text-blue-500" />,
+      title: 'How can I apply for admission?',
+      content: 'Admissions information and application forms are available on our website. For further assistance, please contact our admissions office directly.',
+      icon: <FaCheckCircle className="text-green-500" />,
       bgColor: 'bg-white',
       textColor: 'text-gray-800',
     },
@@ -159,8 +159,7 @@ const FAQ: React.FC = () => {
               District Is Made Of About <span className="text-orange-500">Students Childhood</span>.
             </h1>
             <p className="text-gray-600 mb-6 md:mb-8 text-base md:text-lg">
-              Business tailored it design, management & support services business agency elit, sed do eiusmod tempor.
-            </p>
+            At Bethel Secondary School, we understand that you may have questions about our institution. Here are some common inquiries:            </p>
             {/* Accordion for mobile */}
             <div className="space-y-3 md:space-y-4">
               {accordionItems.map((item, index) => (

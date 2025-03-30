@@ -4,7 +4,7 @@ import { Testimonial } from "@/types/testimonial";
 export const testimonialData: Testimonial[] = [
   {
     id: 1,
-    name: "John Doe",
+    name: "Sanidhya Dangi",
     designation: "Web Developer",
     image: "/images.jpg",
     content: "This course completely transformed my career. The hands-on projects were exactly what I needed to build real skills.",

@@ -1,14 +1,14 @@
 import React from "react";
 import Image from "next/image";
 import { Feature } from "@/types/event";
+import Link from "next/link";
 
 interface SingleFeatureProps {
   feature: Feature;
 }
 
 const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
-  const { category, categoryColor, location, time, title, description, price, image } = feature;
-
+  const { category, categoryColor, location, time, title, description, price, image, slug } = feature;
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden">
       {/* Image */}
@@ -68,7 +68,10 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
         </div>
         <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
-        {/* <p className="text-gray-800 font-semibold">{price}</p> */}
+        {/* Add Link to Slug Page */}
+        <Link href={`/event/${slug}`} className="text-blue-600 hover:underline">
+          View Details
+        </Link>
       </div>
     </div>
   );
