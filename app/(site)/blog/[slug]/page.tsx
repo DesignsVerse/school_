@@ -5,6 +5,7 @@ import BlogData from "@/components/Blog/blogData";
 
 interface PageProps {
   params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // Generate static params for SSG
@@ -14,7 +15,7 @@ export async function generateStaticParams() {
   }));
 }
 
-const SingleBlogPage = ({ params }: PageProps) => {
+const SingleBlogPage = ({ params }: { params: { slug: string } }) => {
   const blog = BlogData.find((b) => b.slug === params.slug); // Match by slug instead of _id
 
   if (!blog) {
