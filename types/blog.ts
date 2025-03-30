@@ -1,23 +1,22 @@
 export type Author = {
+  _id: number;
   name: string;
-  image: string;
+  image?: string;
   bio?: string;
-  _id?: number | string;
-  _ref?: number | string;
 };
 
 export type Blog = {
   _id: number;
   title: string;
-  slug?: any;
-  metadata?: string;  
+  slug: string;
+  metadata?: string;
   body?: string;
-  mainImage?: any;
+  mainImage?: string;
   author?: Author;
   tags?: string[];
   publishedAt?: string;
-  description:string;
-  image:string;
-  category:string;
-  link:string;
+  description: string;
+  image: string;
+  category: string;
+  link: string;
 };

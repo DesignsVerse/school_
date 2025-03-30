@@ -2,35 +2,46 @@ import Image from "next/image";
 import Link from "next/link";
 import BlogData from "./blogData";
 
-const BlogListSidebar = () => {
+export default function BlogListSidebar() {
+  const recentPosts = BlogData.slice(0, 3);
+
   return (
-    <div className="animate_top rounded-md border border-stroke bg-white p-9 shadow-solid-13 dark:border-strokedark dark:bg-blacksection">
-      <h4 className="mb-7.5 text-2xl font-semibold text-black dark:text-white">
+    <div className="sticky top-20 bg-white dark:bg-gray-800 rounded-lg shadow-md p-6">
+      <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
         Recent Posts
-      </h4>
-      <div className="space-y-6">
-        {BlogData.slice(0, 3).map((post) => (
-          <div key={post._id} className="flex gap-4">
-            <Image
-              src={post.image || "/fallback-image.jpg"}
-              alt={post.title}
-              width={100}
-              height={100}
-              className="rounded-md object-cover"
-            />
-            <div className="flex-1">
-              <h5 className="text-lg font-medium text-black dark:text-white hover:text-primary transition-all duration-300">
-                <Link href={post.link}>{post.title}</Link>
-              </h5>
-              <p className="text-sm text-gray-500">
-                {/* {new Date(post.publishedAt).toLocaleDateString()} | {post.category} */}
-              </p>
+      </h3>
+      
+      <div className="space-y-4">
+        {recentPosts.map((post) => (
+          <Link 
+            key={post._id} 
+            href={`/blog/${post.slug}`}
+            className="group flex gap-4 items-start"
+          >
+            <div className="relative h-16 w-16 flex-shrink-0 rounded-md overflow-hidden">
+              <Image
+                src={post.image}
+                alt={post.title}
+                fill
+                className="object-cover transition-transform group-hover:scale-105"
+              />
             </div>
-          </div>
+            <div>
+              <h4 className="font-medium text-gray-900 dark:text-white group-hover:text-primary transition-colors line-clamp-2">
+                {post.title}
+              </h4>
+              {post.publishedAt && (
+                <p className="text-xs text-gray-500 mt-1">
+                  {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric'
+                  })}
+                </p>
+              )}
+            </div>
+          </Link>
         ))}
       </div>
     </div>
   );
-};
-
-export default BlogListSidebar;
+}
