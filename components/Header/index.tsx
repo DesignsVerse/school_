@@ -11,6 +11,7 @@ const menuData = [
   { title: "Events", path: "/events" },
   { title: "Blog", path: "/blog" },
   { title: "Admission", path: "/admissionForm" },
+  { title: "Notice Board", path: "/noticeboard" },
   { title: "Contact", path: "/contact" },
 ];
 
