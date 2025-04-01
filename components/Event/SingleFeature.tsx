@@ -10,15 +10,15 @@ interface SingleFeatureProps {
 const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
   const { category, categoryColor, location, time, title, description, price, image, slug } = feature;
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
       {/* Image */}
-      <div className="relative">
+      <div className="relative aspect-[6/3]">
         <Image
           src={image}
           alt={title}
-          width={400}
-          height={200}
-          className="w-full h-48 object-cover"
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
         {/* Category Label */}
         <span
@@ -29,7 +29,7 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
       </div>
 
       {/* Content */}
-      <div className="p-6">
+      <div className="p-6 flex-1 flex flex-col">
         <div className="flex items-center gap-4 mb-2">
           <div className="flex items-center gap-1">
             <svg
@@ -66,12 +66,17 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
             <span className="text-gray-600 text-sm">{time}</span>
           </div>
         </div>
-        <h3 className="text-xl font-semibold text-gray-800 mb-2">{title}</h3>
-        <p className="text-gray-600 mb-4">{description}</p>
-        {/* Add Link to Slug Page */}
-        <Link href={`/event/${slug}`} className="text-blue-600 hover:underline">
-          View Details
-        </Link>
+        <h3 className="text-xl font-semibold text-gray-800 mb-1 line-clamp-2">{title}</h3>
+        <p className="text-gray-600 mb-1 line-clamp-3">{description}</p>
+        {/* Add margin-top auto to push the link to the bottom */}
+        <div className="mt-auto">
+          <Link 
+            href={`/event/${slug}`} 
+            className="inline-block text-blue-600 hover:underline"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );

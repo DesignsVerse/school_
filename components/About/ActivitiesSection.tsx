@@ -31,10 +31,7 @@ const ActivitiesSection = () => {
         <ul className="flex justify-center gap-3">{dots}</ul>
       </div>
     ),
-    customPaging: () => (
-      <div className="w-3 h-3 rounded-full bg-white bg-opacity-40 transition hover:bg-opacity-100 cursor-pointer" />
-    ),
-    dotsClass: "slick-dots",
+    
   };
 
   const activities = [

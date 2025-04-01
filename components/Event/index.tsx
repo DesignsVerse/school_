@@ -6,37 +6,29 @@ import eventData from "./eventdata";
 import SingleFeature from "./SingleFeature";
 
 const Event: React.FC = () => {
-  const [currentPage, setCurrentPage] = useState(0);
+  const [visibleEvents, setVisibleEvents] = useState(3);
   const [autoPlay, setAutoPlay] = useState(true);
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
 
-  const itemsPerPage = 3;
-  const totalPages = Math.ceil(eventData.length / itemsPerPage);
-
   // Auto-slide with pause on hover
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (autoPlay && inView) {
+    if (autoPlay && inView && eventData.length > visibleEvents) {
       interval = setInterval(() => {
-        setCurrentPage((prev) => (prev === totalPages - 1 ? 0 : prev + 1));
+        setVisibleEvents(prev => prev + 3 > eventData.length ? 3 : prev + 3);
       }, 5000);
     }
     return () => clearInterval(interval);
-  }, [autoPlay, totalPages, inView]);
+  }, [autoPlay, visibleEvents, inView]);
 
-  const handleDotClick = (page: number) => {
-    setCurrentPage(page);
-    setAutoPlay(false);
-    setTimeout(() => setAutoPlay(true), 10000);
+  const handleViewMore = () => {
+    setVisibleEvents(prev => Math.min(prev + 3, eventData.length));
   };
 
-  const currentFeatures = eventData.slice(
-    currentPage * itemsPerPage,
-    (currentPage + 1) * itemsPerPage
-  );
+  const currentFeatures = eventData.slice(0, visibleEvents);
 
   // Animation variants
   const containerVariants = {
@@ -60,11 +52,6 @@ const Event: React.FC = () => {
         ease: "easeOut",
       },
     },
-  };
-
-  const dotVariants = {
-    inactive: { scale: 1 },
-    active: { scale: 1.3 },
   };
 
   return (
@@ -104,7 +91,7 @@ const Event: React.FC = () => {
           <AnimatePresence mode="wait">
             {currentFeatures.map((feature) => (
               <motion.div
-                key={`${feature.id}-${currentPage}`}
+                key={feature.id}
                 variants={itemVariants}
                 initial="hidden"
                 animate="visible"
@@ -118,27 +105,22 @@ const Event: React.FC = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Enhanced Pagination Dots */}
-        <motion.div 
-          className="flex justify-center mt-10 gap-2"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.4 }}
-        >
-          {Array.from({ length: totalPages }).map((_, index) => (
-            <motion.button
-              key={index}
-              onClick={() => handleDotClick(index)}
-              variants={dotVariants}
-              animate={currentPage === index ? "active" : "inactive"}
-              className={`w-3 h-3 rounded-full ${
-                currentPage === index ? "bg-blue-600" : "bg-gray-300"
-              }`}
-              whileHover={{ scale: 1.2 }}
-              aria-label={`Go to page ${index + 1}`}
-            />
-          ))}
-        </motion.div>
+        {/* View More Button */}
+        {visibleEvents < eventData.length && (
+          <motion.div 
+            className="flex justify-center mt-10"
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4 }}
+          >
+            <button
+              onClick={handleViewMore}
+              className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-300"
+            >
+              View More Events
+            </button>
+          </motion.div>
+        )}
       </div>
     </section>
   );

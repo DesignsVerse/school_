@@ -39,7 +39,7 @@ const Footer = () => {
   ];
 
   const quickLinks = [
-    { name: "Admission", href: "/admission" },
+    { name: "Admission", href: "/admissionForm" },
     { name: "About Us", href: "/about" },
     { name: "Faculty", href: "/faculty" },
     { name: "Blog", href: "/blog" },

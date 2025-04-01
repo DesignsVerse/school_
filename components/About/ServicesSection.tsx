@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const ServicesSection = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const settings = {
     dots: true,
@@ -40,15 +41,28 @@ const ServicesSection = () => {
         }
       }
     ],
+    beforeChange: (current: number, next: number) => setCurrentSlide(next),
     appendDots: (dots: React.ReactNode) => (
       <div className="mt-10">
         <ul className="flex justify-center gap-2">{dots}</ul>
       </div>
     ),
-    customPaging: () => (
-      <div className="w-3 h-3 rounded-full bg-gray-300 transition-all duration-300" />
-    ),
-    dotsClass: "slick-dots "
+    customPaging: (i: number) => {
+      const dotColors = [
+        "bg-teal-500",    // matches Graphic Design
+        "bg-purple-500",  // matches Digital Marketing
+        "bg-orange-500",  // matches Product Design
+        "bg-pink-500",    // matches Exclusive Training
+        "bg-blue-500"     // matches Content Creation
+      ];
+      const isActive = currentSlide === i;
+      const colorClass = dotColors[i % dotColors.length];
+      
+      return (
+        <div className={`w-3 h-3 rounded-full transition-all duration-300 ${isActive ? colorClass : "bg-gray-300"}`} />
+      );
+    },
+    dotsClass: "slick-dots"
   };
 
   const services = [
