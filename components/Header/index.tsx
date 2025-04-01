@@ -8,7 +8,7 @@ const menuData = [
   { title: "Home", path: "/" },
   { title: "About Us", path: "/about" },
   { title: "Faculty", path: "/faculty" },
-  { title: "Event", path: "/event" },
+  { title: "Events", path: "/events" },
   { title: "Blog", path: "/blog" },
   { title: "Admission", path: "/admissionForm" },
   { title: "Contact", path: "/contact" },

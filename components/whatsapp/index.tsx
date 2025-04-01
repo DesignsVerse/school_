@@ -1,4 +1,5 @@
 // components/WhatsAppToggle.tsx
+"use client"
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Image from 'next/image'; // Import Next.js Image component

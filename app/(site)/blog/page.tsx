@@ -4,10 +4,31 @@ import SectionHeader from "@/components/Common/SectionHeader";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Blog Page - Solid SaaS Boilerplate",
-
-  // other metadata
-  description: "This is Blog page for Solid Pro"
+  title: "Blog | Bethel Secondary School - Updates & Insights",
+  description:
+    "Explore the latest updates, news, and educational insights from Bethel Secondary School. Stay informed with our blog!",
+  keywords:
+    "Bethel Secondary School, school blog, education news, student updates, school insights, academic articles",
+  robots: "index, follow",
+  authors: [{ name: "Bethel Secondary School Team" }],
+  alternates: {
+    canonical: "https://www.bethelsecondaryschool.com/blog",
+  },
+  openGraph: {
+    title: "Blog - Bethel Secondary School | News & Insights",
+    description:
+      "Read the latest blog posts from Bethel Secondary School about education, student life, and more.",
+    images: [
+      {
+        url: "/images/blog-featured.jpg", // Placeholder, tu apna image URL de sakta hai
+        width: 1200,
+        height: 630,
+        alt: "Bethel Secondary School Blog",
+      },
+    ],
+    url: "https://www.bethelsecondaryschool.com/blog",
+    type: "website",
+  },
 };
 
 const BlogPage = async () => {
