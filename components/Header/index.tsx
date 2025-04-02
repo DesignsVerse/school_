@@ -22,18 +22,12 @@ const Header = () => {
 
   // Sticky menu
   const handleStickyMenu = () => {
-    if (window.scrollY >= 80) {
-      setStickyMenu(true);
-    } else {
-      setStickyMenu(false);
-    }
+    setStickyMenu(window.scrollY >= 80);
   };
 
   // Close menu on scroll
   const handleScroll = () => {
-    if (navigationOpen) {
-      setNavigationOpen(false);
-    }
+    navigationOpen && setNavigationOpen(false);
   };
 
   useEffect(() => {
@@ -45,16 +39,13 @@ const Header = () => {
     };
   }, [navigationOpen]);
 
-  // Close menu on link click
-  const handleLinkClick = () => {
-    setNavigationOpen(false);
-  };
+  const handleLinkClick = () => setNavigationOpen(false);
 
   return (
     <header
       className={`fixed left-0 top-0 z-50 w-full py-4 ${
-        stickyMenu ? "bg-white shadow-md transition duration-100" : "bg-gradient-to-r from-blue-50 to-purple-50"
-      }`}
+        stickyMenu ? "bg-white shadow-md" : "bg-gradient-to-r from-blue-50 to-purple-50"
+      } transition-all duration-300`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-8">
         {/* Logo Section */}
@@ -62,7 +53,7 @@ const Header = () => {
           <a href="/" className="flex flex-col items-center">
             <Image 
               src="/images/logo/logo.png" 
-              alt="Eduor Logo" 
+              alt="School Logo" 
               width={60} 
               height={36}
               className="ml-0 xl:ml-6"
@@ -73,74 +64,56 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Hamburger Toggle for Mobile */}
+        {/* Improved Hamburger/Cross Button */}
         <button
-          aria-label="hamburger Toggler"
-          className="block xl:hidden"
+          aria-label="Toggle navigation menu"
+          className="xl:hidden relative z-50 h-8 w-8 focus:outline-none"
           onClick={() => setNavigationOpen(!navigationOpen)}
         >
-          <span className="relative block h-5.5 w-5.5 cursor-pointer">
-            <span className="absolute right-0 block h-full w-full">
-              <span
-                className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-gray-800 duration-200 ease-in-out ${
-                  !navigationOpen ? "!w-full delay-300" : "w-0"
-                }`}
-              ></span>
-              <span
-                className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-gray-800 delay-150 duration-200 ease-in-out ${
-                  !navigationOpen ? "delay-400 !w-full" : "w-0"
-                }`}
-              ></span>
-              <span
-                className={`relative left-0 top-0 my-1 block h-0.5 rounded-sm bg-gray-800 delay-200 duration-200 ease-in-out ${
-                  !navigationOpen ? "!w-full delay-500" : "w-0"
-                }`}
-              ></span>
-            </span>
-            <span className="absolute right-0 h-full w-full rotate-45">
-              <span
-                className={`absolute left-2.5 top-0 block h-full w-0.5 rounded-sm bg-gray-800 delay-300 duration-200 ease-in-out ${
-                  !navigationOpen ? "!h-0 delay-[0]" : "h-full"
-                }`}
-              ></span>
-              <span
-                className={`delay-400 absolute left-0 top-2.5 block h-0.5 w-full rounded-sm bg-gray-800 duration-200 ease-in-out ${
-                  !navigationOpen ? "!h-0 delay-200" : "h-0.5"
-                }`}
-              ></span>
-            </span>
-          </span>
+          <div className="absolute top-1/2 left-1/2 w-6 -translate-x-1/2 -translate-y-1/2">
+            <span
+              className={`block absolute h-[2px] w-full bg-gray-800 rounded transition-all duration-300 origin-center
+                ${navigationOpen ? 'rotate-45 translate-y-0' : '-translate-y-2'}`}
+            />
+            <span
+              className={`block absolute h-[2px] w-full bg-gray-800 rounded transition-opacity duration-300
+                ${navigationOpen ? 'opacity-0' : ''}`}
+            />
+            <span
+              className={`block absolute h-[2px] w-full bg-gray-800 rounded transition-all duration-300 origin-center
+                ${navigationOpen ? '-rotate-45 translate-y-0' : 'translate-y-2'}`}
+            />
+          </div>
         </button>
 
         {/* Navigation Menu */}
         <div
-          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-md transform transition-transform duration-300 ease-in-out xl:static xl:h-auto xl:w-auto xl:bg-transparent xl:shadow-none xl:transform-none ${
-            navigationOpen ? "translate-x-0" : "translate-x-full xl:translate-x-0"
-          }`}
+          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out
+            xl:relative xl:h-auto xl:w-auto xl:bg-transparent xl:shadow-none xl:translate-x-0
+            ${navigationOpen ? 'translate-x-0' : 'translate-x-full'}`}
+          style={{ zIndex: 40 }}
         >
           <nav className="pt-20 xl:pt-0">
-            <ul className="flex flex-col gap-4 p-4 xl:flex-row xl:gap-8 xl:p-0 xl:items-center">
-              {menuData.map((menuItem, key) => (
-                <li key={key}>
+            <ul className="flex flex-col gap-6 p-6 xl:flex-row xl:gap-8 xl:p-0 xl:items-center">
+              {menuData.map((menuItem, index) => (
+                <li key={index}>
                   <Link
-                    href={menuItem.path || "#"}
+                    href={menuItem.path}
                     onClick={handleLinkClick}
-                    className={
-                      pathUrl === menuItem.path
-                        ? "text-orange-500"
-                        : "text-gray-600 hover:text-orange-500"
-                    }
+                    className={`text-lg hover:text-orange-500 transition-colors ${
+                      pathUrl === menuItem.path ? 'text-orange-500 font-semibold' : 'text-gray-700'
+                    }`}
                   >
                     {menuItem.title}
                   </Link>
                 </li>
               ))}
-              {/* Call Now Button */}
-              <li className="p-4 xl:p-0">
+              <li className="mt-4 xl:mt-0">
                 <Link
                   href="/call-now"
                   onClick={handleLinkClick}
-                  className="rounded-full bg-orange-500 px-6 py-2 text-white hover:bg-orange-600"
+                  className="inline-block rounded-full bg-orange-500 px-6 py-2.5 text-white
+                    hover:bg-orange-600 transition-colors duration-300"
                 >
                   Call Now
                 </Link>
