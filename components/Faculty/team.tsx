@@ -7,12 +7,12 @@ import { teamMembers, TeamMember } from "./teamData";
 
 export default function TeamPage() {
   const [selectedMember, setSelectedMember] = useState<TeamMember>(teamMembers[0]);
-  const detailsRef = useRef<HTMLDivElement>(null); // Ref for scrolling to details
+  const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleMemberClick = (member: TeamMember) => {
-    setSelectedMember(member); // Update the selected member
+    setSelectedMember(member);
     if (detailsRef.current) {
-      const offset = 120; // Yeh value adjust kar sakte ho (pixels upar scroll karne ke liye)
+      const offset = 80; // Reduced offset for mobile
       const elementPosition = detailsRef.current.getBoundingClientRect().top + window.pageYOffset;
       const offsetPosition = elementPosition - offset;
 
@@ -28,10 +28,7 @@ export default function TeamPage() {
       <div ref={detailsRef}>
         <TeamDetailsSection member={selectedMember} />
       </div>
-      <TeamGridSection
-        members={teamMembers}
-        onMemberClick={handleMemberClick}
-      />
+      <TeamGridSection members={teamMembers} onMemberClick={handleMemberClick} />
     </div>
   );
 }
