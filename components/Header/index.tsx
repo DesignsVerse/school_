@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <header
       className={`fixed left-0 top-0 z-50 w-full py-4 ${
-        stickyMenu ? "bg-white shadow-md" : "bg-gradient-to-r from-blue-50 to-purple-50"
+        stickyMenu ? "bg-white" : "bg-gradient-to-r from-blue-50 to-purple-50"
       } transition-all duration-300`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 md:px-8">
@@ -64,7 +64,7 @@ const Header = () => {
           </a>
         </div>
 
-        {/* Improved Hamburger/Cross Button */}
+        {/* Hamburger/Cross Button */}
         <button
           aria-label="Toggle navigation menu"
           className="xl:hidden relative z-50 h-8 w-8 focus:outline-none"
@@ -88,8 +88,8 @@ const Header = () => {
 
         {/* Navigation Menu */}
         <div
-          className={`fixed top-0 right-0 h-full w-64 bg-white shadow-lg transition-transform duration-300 ease-in-out
-            xl:relative xl:h-auto xl:w-auto xl:bg-transparent xl:shadow-none xl:translate-x-0
+          className={`fixed top-0 right-0 h-full w-64 bg-white transition-transform duration-300 ease-in-out
+            xl:relative xl:h-auto xl:w-auto xl:bg-transparent xl:translate-x-0
             ${navigationOpen ? 'translate-x-0' : 'translate-x-full'}`}
           style={{ zIndex: 40 }}
         >
