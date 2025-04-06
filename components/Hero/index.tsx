@@ -184,16 +184,14 @@ const Hero = () => {
               <span className="text-gray-900">Empowering </span>
               <span className="text-orange-500">Young Minds</span>
               <br className="md:hidden" />
-              <span className="text-gray-900"> Through Quality Education</span>
+              <span className="text-gray-900"> Since 1982</span>
             </motion.h1>
 
             <motion.p
               className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-gray-600 sm:text-base md:mb-8 lg:mx-0 xl:text-lg"
               variants={fadeInUp}
             >
-              At Bethel Secondary School, we inspire creativity and foster
-              academic excellence, nurturing students to become lifelong
-              learners and responsible citizens.
+            Bethel Secondary School is an Educational Institution run by the Bethel Educational Society (Regd. & Recogd. by the Govt. of Rajasthan), started for educating the children in the Fear of the Lord and excellence in knowledge. The School was started in 1982 by Late. Sri M.M. Thankachan. Now it is headed by Mrs. Sheeja Stanley, Principal and Mr. Stanley John, Director
             </motion.p>
 
             <motion.div

@@ -104,7 +104,7 @@ const CompleteEducationSection = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               viewport={{ once: true }}
             >
-              Complete About Students University Education
+              Empowering Future Leaders Through Holistic Education
             </motion.h2>
 
             {/* Description - Added placeholder text */}
@@ -145,9 +145,9 @@ const CompleteEducationSection = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1">Successfully Trained</h4>
+                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1"> Founded in 1982</h4>
                   <p className="text-gray-600 text-sm sm:text-[0.92rem] leading-snug">
-                    Over 10,000 students trained with 95% satisfaction rate in our programs.
+                  Over 40+ years of academic excellence and value-based education.
                   </p>
                 </div>
               </motion.li>
@@ -171,9 +171,9 @@ const CompleteEducationSection = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1">Education Growth</h4>
+                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1">Thousands of Students Empowered</h4>
                   <p className="text-gray-600 text-sm sm:text-[0.92rem] leading-snug">
-                    Our students experience 80% better academic growth compared to traditional methods.
+                  Generations of students transformed into confident, capable citizens.
                   </p>
                 </div>
               </motion.li>
@@ -197,9 +197,9 @@ const CompleteEducationSection = () => {
                   </svg>
                 </div>
                 <div>
-                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1">Students Trained</h4>
+                  <h4 className="text-base sm:text-[1.05rem] font-semibold text-gray-900 mb-1"> Strong Career Foundation</h4>
                   <p className="text-gray-600 text-sm sm:text-[0.92rem] leading-snug">
-                    85% of our graduates secure jobs within 3 months of completing their programs.
+                  Students equipped to succeed in higher education and competitive careers.
                   </p>
                 </div>
               </motion.li>

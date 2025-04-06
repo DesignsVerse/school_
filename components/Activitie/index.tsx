@@ -12,13 +12,12 @@ const Activities = () => {
           <motion.h2 
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 dark:text-white" // Reduced text size
           >
-            Our Learning Philosophy
+            Our Vision
           </motion.h2>
           <motion.p
             className="mt-3 md:mt-4 text-sm md:text-base text-gray-600 dark:text-gray-300 max-w-xl mx-auto" // Smaller text and width
           >
-            At Bethel Secondary School in Rajasthan, we combine heritage with modern pedagogy.
-          </motion.p>
+          At Bethel Secondary School, We aim to nurture a generation of morally grounded and intellectually empowered individuals who lead with purpose, compassion, and courage.          </motion.p>
         </div>
 
         {/* Main Content - Adjusted spacing */}
@@ -95,45 +94,46 @@ const Activities = () => {
 // Updated Features Array with Smaller Icons
 const features = [
   {
-    title: "Practical Learning",
-    description: "Hands-on projects & field studies in Rajasthan's ecosystem",
-    color: "bg-blue-500",
+    title: "Raising Leaders with Knowledge and Integrity",
+    description: "Empowering students with wisdom, values, and purpose to shape a morally strong and intellectually rich India.",
+    color: "bg-blue-600",
     icon: (
       <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 01-8 0M12 14v7m-6-3a6 6 0 1112 0" />
       </svg>
     )
   },
   {
-    title: "Tech Integration",
-    description: "AI labs & coding bootcamps with modern tools",
-    color: "bg-purple-500",
+    title: "Academic Excellence",
+    description: "Delivering quality education rooted in truth, justice, and service for holistic development.",
+    color: "bg-indigo-600",
     icon: (
       <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 20l9-5-9-5-9 5 9 5zm0-10V4l9 5-9 5-9-5 9-5z" />
       </svg>
     )
   },
   {
-    title: "Leadership Training",
-    description: "Management simulations & case studies",
-    color: "bg-green-500",
+    title: "Value-Based Growth",
+    description: "Instilling conscience, compassion, and leadership through spiritual and ethical foundations.",
+    color: "bg-green-600",
     icon: (
       <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 1.343-3 3v1h6v-1c0-1.657-1.343-3-3-3zm0 0V4m0 0a8 8 0 100 16 8 8 0 000-16z" />
       </svg>
     )
   },
   {
-    title: "Industry Connect",
-    description: "Partnerships with Rajasthan's top companies",
-    color: "bg-orange-500",
+    title: "Future-Ready Citizens",
+    description: "Preparing students to lead with integrity in a fast-changing global landscape.",
+    color: "bg-yellow-500",
     icon: (
       <svg className="h-5 w-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 11c0-3.866 3.582-7 8-7M12 11c0-3.866-3.582-7-8-7M12 11v10" />
       </svg>
     )
   }
 ];
+
 
 export default Activities;

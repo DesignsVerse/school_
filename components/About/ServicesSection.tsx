@@ -68,40 +68,41 @@ const ServicesSection = () => {
   const services = [
     {
       icon: <FaPencilAlt className="text-2xl text-teal-500" />,
-      title: "Graphic Design",
-      description: "Professional design services for all your branding needs.",
+      title: "Academic Excellence",
+      description: "Delivering quality education rooted in truth, justice, and service for holistic development.",
       image: "/images/about/about-2.jpg",
       color: "bg-teal-100"
     },
     {
       icon: <FaChartLine className="text-2xl text-purple-500" />,
-      title: "Digital Marketing",
-      description: "Boost your online presence with our expert strategies.",
+      title: "Future-Ready Curriculum",
+      description: "Equipping students with modern tools, critical thinking, and global skills to thrive in tomorrow’s world.",
       image: "/images/about/about-2.jpg",
       color: "bg-purple-100"
     },
     {
       icon: <FaProductHunt className="text-2xl text-orange-500" />,
-      title: "Product Design",
-      description: "Innovative design solutions for your products.",
+      title: "Value-Based Growth",
+      description: "Instilling leadership, ethics, and spiritual awareness to guide purposeful lives.",
       image: "/images/about/about-2.jpg",
       color: "bg-orange-100"
     },
     {
       icon: <FaBook className="text-2xl text-pink-500" />,
-      title: "Exclusive Training",
-      description: "Specialized courses tailored to your learning needs.",
+      title: "Innovative Teaching",
+      description: "Blending traditional learning with modern methodologies for immersive education.",
       image: "/images/about/about-2.jpg",
       color: "bg-pink-100"
     },
     {
       icon: <FaPencilAlt className="text-2xl text-blue-500" />,
-      title: "Content Creation",
-      description: "Engaging content that resonates with your audience.",
+      title: "Leadership & Character",
+      description: "Developing confident, morally strong individuals ready to lead with integrity.",
       image: "/images/about/about-2.jpg",
       color: "bg-blue-100"
     }
   ];
+  
 
   return (
     <section className="py-16 md:py-24 bg-gradient-to-b from-gray-50 to-white ">
@@ -111,16 +112,15 @@ const ServicesSection = () => {
           <div className="inline-flex items-center gap-3 mb-4">
             <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
             <span className="text-sm font-semibold tracking-wider text-gradient bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              OUR POPULAR SERVICES
+            OUR KEY FEATURES
             </span>
             <div className="w-2 h-2 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full"></div>
           </div>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
-            We Provide Creative Learning <br className="hidden md:block" /> Platform Services
+          We Provide a Holistic<br className="hidden md:block" /> Learning Experience
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto">
-            Discover our range of professional services designed to help you succeed in the digital world.
-          </p>
+          Explore what makes Bethel Secondary School a beacon of quality education and value-driven development.          </p>
         </div>
 
         {/* Services Carousel */}
