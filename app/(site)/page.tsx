@@ -68,7 +68,7 @@ export default function Home() {
       <About />
       <Event />
       <FAQ />
-      <Course />
+      {/* <Course /> */}
       <Testimonial />
       <Activitie />
       <Blog />

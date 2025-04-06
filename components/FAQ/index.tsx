@@ -55,7 +55,7 @@ const FAQ: React.FC = () => {
         >
           <div className="relative w-full max-w-xs sm:max-w-sm md:max-w-md mx-auto aspect-square rounded-full overflow-hidden border-4 md:border-6 border-white shadow-xl">
             <Image
-              src="/images.jpg"
+              src="/images/school/sir.jpg"
               alt="A young student raising his hand in a classroom"
               fill
               className="object-cover"

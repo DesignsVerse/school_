@@ -47,7 +47,7 @@ const Activities = () => {
                 </div>
                 <div>
                   <p className="text-[0.7rem] md:text-xs">Active Learners</p>
-                  <p className="text-sm md:text-base">183K+ Students</p>
+                  <p className="text-sm md:text-base">1K+ Students</p>
                 </div>
               </motion.div>
             </motion.div>

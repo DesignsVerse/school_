@@ -12,12 +12,11 @@ export type TeamMember = {
   
   export const teamMembers: TeamMember[] = [
     {
-      name: "Md Rubel Islam",
-      about:
-        "Phis are bound to ensue; and equal blame belongs to those who through weakness of the will, the same.",
-      phone: "+582005415241",
-      imageSrc: "/images.jpg",
-      role: "Teacher",
+      name: "Mr. Stanley Johnson",
+      about: "Mr. Stanley Johnson, the visionary Director of Bethel Secondary School, is dedicated to nurturing academic excellence and character development.",
+      phone: "+91 9983055878",
+      imageSrc: "/images/school/sir.jpg",
+      role: "Director",
       socialLinks: [
         { platform: "facebook", icon: "f" },
         { platform: "linkedin", icon: "in" },
@@ -26,21 +25,28 @@ export type TeamMember = {
       ],
       description:"",
       highlights: [
-        "Business school’s Institut constructivism.",
-        "Media in this school solution.",
-        "We give management school best.",
-        "Business school’s Institut constructivism.",
-        "Media in this school solution.",
-      ],
+        "Visionary leadership rooted in values.",
+        "Empowering students through purpose-driven education.",
+        "Building future leaders with global insight.",
+        "Champion of academic and moral excellence.",
+        "Fostering innovation with discipline and heart."
+      ],      
     },
     {
-      name: "Narata Barat",
-      about: "Experienced educator with a passion for teaching.",
-      phone: "+1234567890",
-      imageSrc: "/images.jpg",
-      role: "Teacher",
-      description: "Narata has been teaching for over 10 years...",
-      highlights: ["Highlight 1", "Highlight 2", "Highlight 3"],
+      name: "Mrs. Sheeja Stanley",
+      about: "Mrs. Sheeja Stanley, Principal of Bethel Secondary School, leads with compassion and a commitment to holistic student growth.",
+      phone: "+91 ",
+      imageSrc: "/images/school/ma'am.jpg",
+      role: "Principal",
+      description: "",
+      highlights: [
+        "Dedicated to nurturing every child's potential.",
+        "Academic excellence with a caring touch.",
+        "Inspiring holistic growth through values.",
+        "Champion of disciplined and inclusive learning.",
+        "Leading with empathy, shaping future minds."
+      ]
+      ,
     },
     {
       name: "Jahid Hasan",
@@ -61,7 +67,7 @@ export type TeamMember = {
       highlights: ["Highlight X", "Highlight Y", "Highlight Z"],
     },
     {
-      name: "Mahi Islam",
+      name: "Mahi soni",
       about: "Committed to fostering a love for learning.",
       phone: "+2233445566",
       imageSrc: "/images.jpg",
@@ -70,7 +76,7 @@ export type TeamMember = {
       highlights: ["Highlight 1", "Highlight 2", "Highlight 3"],
     },
     {
-      name: "Istiak Ahmed",
+      name: "Istiak ",
       about: "Expert in curriculum development.",
       phone: "+3344556677",
       imageSrc: "/images.jpg",
@@ -79,7 +85,7 @@ export type TeamMember = {
       highlights: ["Highlight A", "Highlight B", "Highlight C"],
     },
     {
-      name: "Shakil Ahmed",
+      name: "Shakil ",
       about: "Focuses on student-centered learning.",
       phone: "+4455667788",
       imageSrc: "/images.jpg",
