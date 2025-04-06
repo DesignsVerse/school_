@@ -34,7 +34,7 @@ const CompleteEducationSection = () => {
                 className="relative z-10"
               >
                 <Image
-                  src="/images.jpg"
+                  src="/images/hero/banner.jpg"
                   alt="Person reading"
                   width={500} // Increased width
                   height={500} // Increased height
@@ -52,16 +52,16 @@ const CompleteEducationSection = () => {
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
             >
-              <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-lg">
-                <Image
-                  src="/images.jpg"
-                  alt="Small person"
+              {/* <div className="relative w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden border-4 border-white shadow-lg"> */}
+                {/* <Image
+                  src="/images/logo/logo.png"
+                  alt="School's Logo"
                   fill
                   className="object-cover"
                   priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-teal-50/20 to-blue-50/20 rounded-full"></div>
-              </div>
+                /> */}
+                {/* <div className="absolute inset-0 bg-gradient-to-br from-teal-50/20 to-blue-50/20 rounded-full"></div> */}
+              {/* </div> */}
             </motion.div>
 
             {/* Experience Badge - Enhanced */}
@@ -72,7 +72,7 @@ const CompleteEducationSection = () => {
   transition={{ duration: 0.6, delay: 0.8 }}
   viewport={{ once: true }}
 >
-  <span className="text-sm sm:text-base font-semibold whitespace-nowrap">24+ YEARS OF EXPERIENCE</span>
+  <span className="text-sm sm:text-base font-semibold whitespace-nowrap">40+ YEARS OF EXPERIENCE</span>
 </motion.div>
           </motion.div>
 

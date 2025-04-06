@@ -126,7 +126,7 @@ const Hero = () => {
               <div className="absolute inset-0 rotate-2 scale-95 transform rounded-3xl bg-gradient-to-tr from-orange-100 to-blue-100"></div>
               <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-xl md:shadow-2xl">
                 <Image
-                  src="/images.jpg"
+                  src="/images/hero/banner.jpg"
                   alt="Happy child learning"
                   fill
                   className="object-cover"
