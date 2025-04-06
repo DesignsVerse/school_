@@ -15,7 +15,7 @@ type AboutUsSectionProps = {
 
 const SectionHeader = ({
   title = "About Us",
-  subtitle = "Learn more about our mission and valu",
+  subtitle = "Learn more about our mission and value",
   breadcrumbPath = "About Us",
   imageUrl = "/images/about-us-person.png",
   imageAlt = "Person studying",

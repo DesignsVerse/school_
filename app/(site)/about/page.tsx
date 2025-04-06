@@ -58,7 +58,7 @@ export default function About() {
       <CompleteEducationSection />
       <ServicesSection />
       <FAQ />
-      <ActivitiesSection />
+      {/* <ActivitiesSection /> */}
       <Blog />
     </div>
   );

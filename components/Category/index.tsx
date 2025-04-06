@@ -39,13 +39,13 @@ const Categories = () => {
           className="text-center mb-8 m-10 md:mb-12"
         >
           <span className="inline-block px-3 py-1 bg-blue-100 rounded-full text-blue-600 font-medium text-xs md:text-sm uppercase tracking-wide mb-3">
-            Our Course Categories
+            Our School Services
           </span>
           <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
-            Discover <span className="text-blue-600">Creative</span> Learning Paths
+            Discover <span className="text-blue-600">Creative</span> Learnings
           </h2>
           <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
-            Explore our specialized courses designed to help you achieve your learning goals.
+            Explore our specialized services designed to help you achieve your career goals.
           </p>
         </motion.div>
 

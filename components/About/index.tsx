@@ -101,28 +101,28 @@ const About: React.FC = () => {
                 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
                 variants={itemVariants}
               >
-                Shaping Futures: Encouraging Growth and Education at <span className="text-orange-500">Bethel Secondary School</span>
+                Our Mission:  <span className="text-orange-500">Bethel Secondary School</span>
               </motion.h2>
               
               <motion.p 
                 className="text-sm md:text-base text-gray-600 mb-6"
                 variants={itemVariants}
               >
-                At Bethel Secondary School, we are dedicated to providing a comprehensive educational experience that emphasizes.
-              </motion.p>
+              At Bethel Secondary School, our mission is to nurture every child into a responsible, confident, and morally grounded individual through quality education rooted in values              </motion.p>
 
               {/* Checklist */}
               <motion.ul 
                 className="space-y-2 md:space-y-4 mb-8"
                 variants={containerVariants}
               >
-                {[
-                  "Constructivist Learning Philosophy",
-                  "Student-Centered Education",
-                  "Innovative Learning Approaches",
-                  "Student-centered education philosophy",
-                  "Innovative learning approaches"
-                ].map((item, index) => (
+                {["Foster holistic development: moral, intellectual, social, cultural, and physical",
+  "Inspire students to grow in the fear of the Lord and live with integrity",
+  "Promote high moral values and strong personal convictions",
+  "Encourage students to impact the world through love and service",
+  "Provide quality education that equips students to face modern challenges",
+  "Identify and nurture the unique talents of every student",
+  "Create a positive and open learning environment for growth"
+].map((item, index) => (
                   <motion.li 
                     key={index} 
                     className="flex items-start gap-3"
