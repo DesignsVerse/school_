@@ -5,17 +5,15 @@ import BlogData from "@/components/Blog/blogData";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-interface PageProps {
-  params: {
-    slug: string;
-  };
-}
-
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
   if (!blog) {
     return {
@@ -33,7 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default function SingleBlogPage({ params }: PageProps) {
+export default function SingleBlogPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
   if (!blog) {
     notFound();
@@ -75,7 +77,9 @@ export default function SingleBlogPage({ params }: PageProps) {
                   </div>
                 )}
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">{blog.author.name}</p>
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    {blog.author.name}
+                  </p>
                   {blog.publishedAt && (
                     <p className="text-sm text-gray-500 dark:text-gray-400">
                       {new Date(blog.publishedAt).toLocaleDateString("en-US", {
@@ -102,7 +106,9 @@ export default function SingleBlogPage({ params }: PageProps) {
                         prose-img:rounded-xl prose-img:shadow-lg
                         prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-gray-100 dark:prose-blockquote:bg-gray-700/20
                         text-gray-600 dark:text-gray-300"
-              dangerouslySetInnerHTML={{ __html: blog.body || blog.description }}
+              dangerouslySetInnerHTML={{
+                __html: blog.body || blog.description,
+              }}
             />
 
             {/* Tags */}
@@ -126,3 +132,4 @@ export default function SingleBlogPage({ params }: PageProps) {
     </section>
   );
 }
+// export default SingleBlogPage; // Uncomment if needed
