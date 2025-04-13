@@ -1,19 +1,14 @@
 import Image from "next/image";
 import BlogData from "@/components/Blog/blogData";
 import { notFound } from "next/navigation";
-import { Metadata } from "next";
 
-// For static generation of paths
+// generateStaticParams
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
 }
 
-// For dynamic metadata generation
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+// generateMetadata
+export async function generateMetadata({ params }) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
   if (!blog) {
     return {
@@ -31,12 +26,8 @@ export async function generateMetadata({
   };
 }
 
-// This must be async to access `params`
-export default async function SingleBlogPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+// Component
+export default function SingleBlogPage({ params }) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
 
   if (!blog) {
@@ -102,11 +93,11 @@ export default async function SingleBlogPage({
             {/* Body */}
             <div
               className="prose max-w-none dark:prose-invert mx-auto
-                        prose-headings:font-semibold prose-a:text-primary
-                        prose-a:no-underline prose-a:border-b-2 prose-a:border-primary/30 hover:prose-a:border-primary
-                        prose-img:rounded-xl prose-img:shadow-lg
-                        prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-gray-100 dark:prose-blockquote:bg-gray-700/20
-                        text-gray-600 dark:text-gray-300"
+                prose-headings:font-semibold prose-a:text-primary
+                prose-a:no-underline prose-a:border-b-2 prose-a:border-primary/30 hover:prose-a:border-primary
+                prose-img:rounded-xl prose-img:shadow-lg
+                prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-gray-100 dark:prose-blockquote:bg-gray-700/20
+                text-gray-600 dark:text-gray-300"
               dangerouslySetInnerHTML={{
                 __html: blog.body || blog.description,
               }}
