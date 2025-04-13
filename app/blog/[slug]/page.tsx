@@ -1,17 +1,18 @@
 import Image from "next/image";
-import BlogListSidebar from "@/components/Blog/BlogListSidebar";
 import BlogData from "@/components/Blog/blogData";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
+// For static generation of paths
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
 }
 
+// For dynamic metadata generation
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: any };
+  params: { slug: string };
 }): Promise<Metadata> {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
   if (!blog) {
@@ -30,11 +31,12 @@ export async function generateMetadata({
   };
 }
 
-interface PageProps {
+// This must be async to access `params`
+export default async function SingleBlogPage({
+  params,
+}: {
   params: { slug: string };
-}
-
-export default function SingleBlogPage({ params }: PageProps) {
+}) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
 
   if (!blog) {
