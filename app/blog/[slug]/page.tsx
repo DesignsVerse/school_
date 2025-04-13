@@ -1,5 +1,4 @@
 import Image from "next/image";
-// import SharePost from "@/components/Blog/SharePost"; // Uncomment if needed
 import BlogListSidebar from "@/components/Blog/BlogListSidebar";
 import BlogData from "@/components/Blog/blogData";
 import { notFound } from "next/navigation";
@@ -22,7 +21,7 @@ export async function generateMetadata({
     };
   }
   return {
-    title: `${blog.title} | Your Site Name`,
+    title: `${blog.title} | Bethel Secondary School`,
     description: blog.description,
     openGraph: {
       images: [blog.mainImage || blog.image],
@@ -31,12 +30,15 @@ export async function generateMetadata({
   };
 }
 
-export default function SingleBlogPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
+interface BlogPageProps {
+  params: {
+    slug: string;
+  };
+}
+
+export default function SingleBlogPage({ params }: BlogPageProps) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
+
   if (!blog) {
     notFound();
   }
@@ -45,7 +47,6 @@ export default function SingleBlogPage({
     <section className="py-20 bg-gradient-to-b from-gray-50/50 to-white dark:from-gray-900 dark:to-gray-800">
       <div className="container mx-auto px-4 max-w-3xl">
         <article className="bg-white dark:bg-gray-800 rounded-2xl shadow-md p-6 md:p-10">
-          
           {/* Image */}
           <div className="w-full rounded-2xl overflow-hidden shadow-md mb-8">
             <Image
@@ -132,4 +133,3 @@ export default function SingleBlogPage({
     </section>
   );
 }
-// export default SingleBlogPage; // Uncomment if needed
