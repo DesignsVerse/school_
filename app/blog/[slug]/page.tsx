@@ -32,7 +32,7 @@ export async function generateMetadata({
 
 interface BlogPageProps {
   params: {
-    slug: string;
+    slug: any;
   };
 }
 
