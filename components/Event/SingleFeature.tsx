@@ -74,7 +74,7 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
         </p>
         <div className="mt-auto">
           <Link
-            href={`/event/${slug}`}
+            href={`/events/${slug}`}
             className="inline-block text-blue-600 hover:underline text-sm sm:text-base"
           >
             View Details
