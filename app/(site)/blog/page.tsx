@@ -20,7 +20,7 @@ export const metadata: Metadata = {
       "Read the latest blog posts from Bethel Secondary School about education, student life, and more.",
     images: [
       {
-        url: "/images/blog-featured.jpg", // Placeholder, tu apna image URL de sakta hai
+        url: "/images/blog-featured.jpg", // Placeholder
         width: 1200,
         height: 630,
         alt: "Bethel Secondary School Blog",
