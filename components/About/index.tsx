@@ -185,7 +185,7 @@ const About: React.FC = () => {
           >
             <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/image.jpg"
+                src="/images/about/mission.jpg"
                 alt="Students with books"
                 fill
                 className="object-cover max-w-[280px] md:max-w-none"
