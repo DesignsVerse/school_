@@ -198,15 +198,15 @@ Let me know if you'd like any modifications!            </p>
         >
           <p>© {new Date().getFullYear()} Bethel Sec. School. All rights reserved.</p>
          <p>
-          Creat By
+          Created By
           <a
-            href="https://wa.me/919413466075?text=I%20Want%20To%20Creat%20A%20Website"
+{/*             href="https://wa.me/919413466075?text=I%20Want%20To%20Creat%20A%20Website" */}
             target="_blank"
             rel="noopener noreferrer"
            
             className="hover:text-white text-center text-gray-500 text-sm"
           >
-            <strong>DesignsVerse</strong>
+            <strong> DesignsVerse</strong>
           </a>
         </p>
         </motion.div>
