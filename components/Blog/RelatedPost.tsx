@@ -3,29 +3,33 @@ import Image from "next/image";
 import Link from "next/link";
 import BlogData from "./blogData";
 
-const RelatedPost = () => {
+const RelatedPost = ({ currentBlogId }: { currentBlogId: number }) => {
+  // Filter out the current blog and take 3 related posts
+  const relatedPosts = BlogData.filter((post) => post._id !== currentBlogId).slice(0, 3);
+
   return (
-    <div className="animate_top rounded-md border border-stroke bg-white p-9 shadow-solid-13 dark:border-strokedark dark:bg-blacksection">
-      <h4 className="mb-7.5 text-2xl font-semibold text-black dark:text-white">
+    <div className="mt-12 rounded-lg border border-gray-200 bg-white p-8 shadow-md dark:border-gray-700 dark:bg-gray-800">
+      <h4 className="mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         Related Posts
       </h4>
-      <div>
-        {BlogData.slice(0, 3).map((post) => (
+      <div className="space-y-6">
+        {relatedPosts.map((post) => (
           <div
-            className="mb-7.5 flex flex-wrap gap-4 xl:flex-nowrap 2xl:gap-6"
+            className="flex flex-wrap items-center gap-4 sm:flex-nowrap"
             key={post._id}
           >
-            <div className="relative h-18 w-45">
+            <div className="relative h-16 w-40 flex-shrink-0 overflow-hidden rounded-md">
               <Image
                 src={post.mainImage || post.image || "/fallback-image.jpg"}
                 alt={post.title}
-                width={180}
-                height={72}
-                className="rounded-md object-cover"
+                fill
+                className="object-cover transition-transform hover:scale-105"
               />
             </div>
-            <h5 className="text-md font-medium text-black transition-all duration-300 hover:text-primary dark:text-white dark:hover:text-primary">
-              <Link href={post.link}>{post.title.slice(0, 40)}...</Link>
+            <h5 className="text-base font-medium text-gray-900 transition-all duration-300 hover:text-primary dark:text-white dark:hover:text-primary">
+              <Link href={`/blog/${post.slug}`}>
+                {post.title.length > 50 ? `${post.title.slice(0, 50)}...` : post.title}
+              </Link>
             </h5>
           </div>
         ))}
@@ -33,5 +37,4 @@ const RelatedPost = () => {
     </div>
   );
 };
-
-export default RelatedPost;
+export default RelatedPost
