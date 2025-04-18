@@ -1,4 +1,3 @@
-import { NextPage } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -7,19 +6,19 @@ import SharePost from "@/components/Blog/SharePost";
 import RelatedPost from "@/components/Blog/RelatedPost";
 import { Blog } from "@/types/blog";
 
-// Define PageProps type for Next.js App Router
-type PageProps = {
-  params: { slug: string };
-};
-
 // Generate static params for dynamic routes
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
 }
 
 // SingleBlogPage component
-const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
-  const blog = BlogData.find((blog) => blog.slug === params.slug);
+export default async function SingleBlogPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const resolvedParams = await params; // Await the params Promise
+  const blog = BlogData.find((blog) => blog.slug === resolvedParams.slug);
 
   if (!blog) {
     notFound();
@@ -176,6 +175,4 @@ const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
       </div>
     </section>
   );
-};
-
-export default SingleBlogPage;
+}
