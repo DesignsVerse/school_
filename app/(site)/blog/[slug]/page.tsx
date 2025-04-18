@@ -1,15 +1,24 @@
+import { NextPage } from "next";
 import Image from "next/image";
-import BlogData from "@/components/Blog/blogData";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import BlogData from "@/components/Blog/blogData";
 import SharePost from "@/components/Blog/SharePost";
 import RelatedPost from "@/components/Blog/RelatedPost";
-import Link from "next/link";
+import { Blog } from "@/types/blog";
 
+// Define PageProps type for Next.js App Router
+interface PageProps {
+  params: { slug: string };
+}
+
+// Generate static params for dynamic routes
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+// Generate metadata for SEO
+export async function generateMetadata({ params }: PageProps) {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
   if (!blog) {
     return {
@@ -27,7 +36,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   };
 }
 
-export default function SingleBlogPage({ params }: { params: { slug: string } }) {
+// SingleBlogPage component
+const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
   const blog = BlogData.find((blog) => blog.slug === params.slug);
 
   if (!blog) {
@@ -35,7 +45,7 @@ export default function SingleBlogPage({ params }: { params: { slug: string } })
   }
 
   return (
-    <section className="pt-8 pb-16 mt-40 lg:pt-12 lg:pb-20 bg-white dark:from-gray-900 dark:to-gray-800">
+    <section className="pt-8 pb-16  mt-30 lg:pt-12 lg:pb-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Main Content */}
@@ -179,4 +189,6 @@ export default function SingleBlogPage({ params }: { params: { slug: string } })
       </div>
     </section>
   );
-}
+};
+
+export default SingleBlogPage;
