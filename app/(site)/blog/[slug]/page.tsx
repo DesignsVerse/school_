@@ -8,32 +8,13 @@ import RelatedPost from "@/components/Blog/RelatedPost";
 import { Blog } from "@/types/blog";
 
 // Define PageProps type for Next.js App Router
-interface PageProps {
+type PageProps = {
   params: { slug: string };
-}
+};
 
 // Generate static params for dynamic routes
 export async function generateStaticParams() {
   return BlogData.map((blog) => ({ slug: blog.slug }));
-}
-
-// Generate metadata for SEO
-export async function generateMetadata({ params }: PageProps) {
-  const blog = BlogData.find((blog) => blog.slug === params.slug);
-  if (!blog) {
-    return {
-      title: "Blog Not Found",
-      description: "The blog post you're looking for doesn't exist.",
-    };
-  }
-  return {
-    title: `${blog.title} | Bethel Secondary School`,
-    description: blog.description,
-    openGraph: {
-      images: [blog.mainImage || blog.image],
-      publishedTime: blog.publishedAt,
-    },
-  };
 }
 
 // SingleBlogPage component
@@ -45,7 +26,7 @@ const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
   }
 
   return (
-    <section className="pt-8 pb-16  mt-30 lg:pt-12 lg:pb-20 bg-white dark:bg-gray-900">
+    <section className="pt-8 pb-16 mt-30 lg:pt-12 lg:pb-20 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4 max-w-7xl">
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12">
           {/* Main Content */}
@@ -91,11 +72,14 @@ const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
                         </p>
                         {blog.publishedAt && (
                           <p className="text-sm text-gray-500 dark:text-gray-400">
-                            {new Date(blog.publishedAt).toLocaleDateString("en-US", {
-                              year: "numeric",
-                              month: "long",
-                              day: "numeric",
-                            })}
+                            {new Date(blog.publishedAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                              }
+                            )}
                           </p>
                         )}
                       </div>
@@ -171,11 +155,14 @@ const SingleBlogPage: NextPage<PageProps> = ({ params }) => {
                         </h4>
                         {post.publishedAt && (
                           <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                            {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                              month: "short",
-                              day: "numeric",
-                              year: "numeric",
-                            })}
+                            {new Date(post.publishedAt).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "short",
+                                day: "numeric",
+                                year: "numeric",
+                              }
+                            )}
                           </p>
                         )}
                       </div>
