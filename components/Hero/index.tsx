@@ -2,7 +2,14 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-const Hero = () => {
+
+interface HeroProps {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+const Hero = ({ title, subtitle, description }: HeroProps) => {
   const fadeInUp = {
     hidden: { opacity: 0, y: 30 },
     visible: {
@@ -173,7 +180,7 @@ const Hero = () => {
           >
             <motion.div variants={fadeInUp}>
               <span className="mb-3 inline-block rounded-full bg-orange-100 px-3 py-1 text-xs font-medium text-orange-600 md:mb-4 md:px-4 md:py-2 md:text-base">
-                Welcome to Bethel Secondary School
+                {subtitle || "Welcome to Bethel Secondary School"}
               </span>
             </motion.div>
 
@@ -181,17 +188,17 @@ const Hero = () => {
               className="mb-4 text-2xl font-bold leading-tight sm:text-4xl md:text-5xl md:mb-6 xl:text-6xl"
               variants={fadeInUp}
             >
-              <span className="text-gray-900">Empowering </span>
-              <span className="text-orange-500">Young Minds</span>
+              <span className="text-gray-900">{title?.split(" ")[0] || "Empowering"} </span>
+              <span className="text-orange-500">{title?.split(" ").slice(1, -2).join(" ") || "Young Minds"}</span>
               <br className="md:hidden" />
-              <span className="text-gray-900"> Since 1982</span>
+              <span className="text-gray-900"> {title?.split(" ").slice(-2).join(" ") || "Since 1982"}</span>
             </motion.h1>
 
             <motion.p
               className="mx-auto mb-6 max-w-2xl text-sm leading-relaxed text-gray-600 sm:text-base md:mb-8 lg:mx-0 xl:text-lg"
               variants={fadeInUp}
             >
-            Bethel Secondary School is an Educational Institution run by the Bethel Educational Society (Regd. & Recogd. by the Govt. of Rajasthan), started for educating the children in the Fear of the Lord and excellence in knowledge. The School was started in 1982 by Late. Sri M.M. Thankachan. Now it is headed by Mrs. Sheeja Stanley, Principal and Mr. Stanley John, Director
+              {description}
             </motion.p>
 
             <motion.div

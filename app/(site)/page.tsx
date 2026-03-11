@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import Hero from "@/components/Hero";
+import { prisma } from "@/lib/prisma";
 import About from "@/components/About";
 import CTA from "@/components/CTA";
 import Blog from "@/components/Blog";
@@ -39,7 +40,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Home() {
+export default async function Home() {
+  const content = await prisma.siteContent.findMany();
+  
+  const getVal = (section: string, key: string, fallback: string) => 
+    content.find(c => c.section === section && c.key === key)?.value || fallback;
+
   // Structured Data for Schema.org
   const homeSchema = {
     "@context": "https://schema.org",
@@ -62,10 +68,27 @@ export default function Home() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(homeSchema) }}
         />
       </head>
-      <Hero />
+      <Hero 
+        title={getVal("hero", "title", "Empowering Young Minds Since 1982")}
+        subtitle={getVal("hero", "subtitle", "Welcome to Bethel Secondary School")}
+        description={getVal("hero", "description", "Bethel Secondary School is an Educational Institution run by the Bethel Educational Society (Regd. & Recogd. by the Govt. of Rajasthan), started for educating the children in the Fear of the Lord and excellence in knowledge. The School was started in 1982 by Late. Sri M.M. Thankachan. Now it is headed by Mrs. Sheeja Stanley, Principal and Mr. Stanley John, Director")}
+      />
       <Categories />
-      <CTA />
-      <About />
+      <CTA 
+        title={getVal("cta", "title", "Ready to Join Our Community?")}
+        description={getVal("cta", "description", "We provide reliable and innovative learning solutions that inspire creativity and foster academic excellence for students of all ages.")}
+        buttonText={getVal("cta", "buttonText", "Register Now")}
+        buttonLink={getVal("cta", "buttonLink", "/admissionForm")}
+        image={getVal("cta", "bannerImage", "/images.jpg")}
+      />
+      <About 
+        badge={getVal("about", "badge", "Our About Us")}
+        title={getVal("about", "title", "Our Mission: Bethel Secondary School")}
+        description={getVal("about", "description", "At Bethel Secondary School, our mission is to nurture every child into a responsible, confident, and morally grounded individual through quality education rooted in values")}
+        image={getVal("about", "image", "/images/about/mission.jpg")}
+        statsLabel={getVal("about", "stats_label", "Successfully Completed")}
+        statsValue={getVal("about", "stats_value", "183K+")}
+      />
       <Event />
       <FAQ />
       {/* <Course /> */}

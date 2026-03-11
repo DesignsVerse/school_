@@ -3,7 +3,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const CTA: React.FC = () => {
+interface CTAProps {
+  title?: string;
+  description?: string;
+  buttonText?: string;
+  buttonLink?: string;
+  image?: string;
+}
+
+const CTA: React.FC<CTAProps> = ({ title, description, buttonText, buttonLink, image }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -71,7 +79,7 @@ const CTA: React.FC = () => {
         >
           <div className="relative bg-white rounded-lg w-full h-[300px] overflow-hidden">
             <Image
-              src="/images.jpg"
+              src={image || "/images.jpg"}
               alt="Students and teacher"
               fill
               className="object-cover"
@@ -91,20 +99,22 @@ const CTA: React.FC = () => {
               variants={textVariants}
             >
               <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Study Flexibly with <strong  className="text-orange-500">Bethel Secondary School</strong> 
+                {title || "Study Flexibly with Bethel Secondary School"}
               </h2>
               <p className="text-base md:text-lg">
-              We provide reliable and innovative learning solutions that inspire creativity and foster academic excellence for students of all ages.              </p>
+                {description || "We provide reliable and innovative learning solutions that inspire creativity and foster academic excellence for students of all ages."}
+              </p>
             </motion.div>
             
             <motion.a
-              href="#"
+              href={buttonLink || "#"}
               className="rounded-full bg-orange-500 px-10 py-2.5 mr-0 md:mr-20 text-white font-medium hover:bg-orange-600 transition duration-300 whitespace-nowrap self-start md:self-center"
               variants={buttonVariants}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-Get Started Today"            </motion.a>
+              {buttonText || "Get Started Today"}
+            </motion.a>
           </div>
         </motion.div>
       </motion.div>

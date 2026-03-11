@@ -1,0 +1,48 @@
+// This is your Prisma schema file.
+// We are using SQLite for local development to ensure it runs out-of-the-box.
+// IMPORTANT: Before deploying to Vercel, change `provider` to "postgresql" and use your Vercel KV/Postgres URL in .env
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SiteContent {
+  id          String   @id @default(cuid())
+  section     String   // e.g., "hero", "about", "contact"
+  key         String   // e.g., "title", "description", "phone"
+  value       String   // The actual text content
+  type        String   @default("text") // text, textarea, image, link
+  label       String?  // Human readable label
+  description String?  // Instruction for the admin
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@unique([section, key])
+}
+
+model BlogPost {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String
+  imageUrl    String?
+  published   Boolean  @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

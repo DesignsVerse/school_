@@ -3,7 +3,16 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
-const About: React.FC = () => {
+interface AboutProps {
+  badge?: string;
+  title?: string;
+  description?: string;
+  image?: string;
+  statsLabel?: string;
+  statsValue?: string;
+}
+
+const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLabel, statsValue }) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.2,
@@ -94,21 +103,22 @@ const About: React.FC = () => {
                 className="inline-block px-3 py-1 mb-3 text-xs md:text-sm font-medium text-blue-600 bg-blue-100 rounded-full"
                 variants={itemVariants}
               >
-                Our About Us
+                {badge || "Our About Us"}
               </motion.span>
               
               <motion.h2 
                 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
                 variants={itemVariants}
               >
-                Our Mission:  <span className="text-orange-500">Bethel Secondary School</span>
+                {title || "Our Mission: Bethel Secondary School"}
               </motion.h2>
               
               <motion.p 
                 className="text-sm md:text-base text-gray-600 mb-6"
                 variants={itemVariants}
               >
-              At Bethel Secondary School, our mission is to nurture every child into a responsible, confident, and morally grounded individual through quality education rooted in values              </motion.p>
+                {description || "At Bethel Secondary School, our mission is to nurture every child into a responsible, confident, and morally grounded individual through quality education rooted in values"}
+              </motion.p>
 
               {/* Checklist */}
               <motion.ul 
@@ -185,41 +195,12 @@ const About: React.FC = () => {
           >
             <div className="relative aspect-[4/3] w-full rounded-2xl overflow-hidden shadow-xl">
               <Image
-                src="/images/about/mission.jpg"
+                src={image || "/images/about/mission.jpg"}
                 alt="Students with books"
                 fill
                 className="object-cover max-w-[280px] md:max-w-none"
                 priority
               />
-              
-              {/* Stats badge */}
-              <motion.div 
-                className="absolute bottom-4 right-4 md:bottom-6 md:right-6 bg-white p-3 md:p-4 rounded-lg shadow-md flex items-center gap-2 border border-blue-100"
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : {}}
-                transition={{ delay: 0.8, type: "spring", stiffness: 100 }}
-              >
-                <div className="flex-shrink-0 p-1.5 md:p-2 bg-blue-100 rounded-md">
-                  <svg
-                    className="w-6 h-6 text-blue-600"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-xs md:text-sm text-gray-500">Successfully Completed</p>
-                  <p className="text-lg md:text-2xl font-bold text-gray-900">183K+</p>
-                </div>
-              </motion.div>
             </div>
           </motion.div>
         </div>
