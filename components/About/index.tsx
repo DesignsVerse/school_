@@ -54,12 +54,12 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
   };
 
   return (
-    <section 
+    <section
       ref={ref}
       className="relative overflow-hidden py-12 md:py-24 bg-gradient-to-r from-blue-50 to-purple-50"
     >
       {/* Decorative Elements */}
-      <motion.div 
+      <motion.div
         className="absolute top-40 left-10 opacity-70"
         initial={{ y: -20, opacity: 0 }}
         animate={inView ? { y: 0, opacity: 0.7 } : {}}
@@ -73,8 +73,8 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
           className="w-10 h-10 md:w-16 md:h-16"
         />
       </motion.div>
-      
-      <motion.div 
+
+      <motion.div
         className="absolute bottom-30 right-20 opacity-70"
         initial={{ y: 20, opacity: 0 }}
         animate={inView ? { y: 0, opacity: 0.7 } : {}}
@@ -92,28 +92,28 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
       <div className="mx-auto max-w-c-1235 px-4 md:px-8 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-6 md:gap-10">
           {/* Left Side: Text Content */}
-          <motion.div 
+          <motion.div
             className="lg:w-1/2"
             variants={containerVariants}
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
           >
             <div className="max-w-lg">
-              <motion.span 
+              <motion.span
                 className="inline-block px-3 py-1 mb-3 text-xs md:text-sm font-medium text-blue-600 bg-blue-100 rounded-full"
                 variants={itemVariants}
               >
                 {badge || "Our About Us"}
               </motion.span>
-              
-              <motion.h2 
+
+              <motion.h2
                 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-4 leading-tight"
                 variants={itemVariants}
               >
                 {title || "Our Mission: Bethel Secondary School"}
               </motion.h2>
-              
-              <motion.p 
+
+              <motion.p
                 className="text-sm md:text-base text-gray-600 mb-6"
                 variants={itemVariants}
               >
@@ -121,20 +121,20 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
               </motion.p>
 
               {/* Checklist */}
-              <motion.ul 
+              <motion.ul
                 className="space-y-2 md:space-y-4 mb-8"
                 variants={containerVariants}
               >
                 {["Foster holistic development: moral, intellectual, social, cultural, and physical",
-  "Inspire students to grow in the fear of the Lord and live with integrity",
-  "Promote high moral values and strong personal convictions",
-  "Encourage students to impact the world through love and service",
-  "Provide quality education that equips students to face modern challenges",
-  "Identify and nurture the unique talents of every student",
-  "Create a positive and open learning environment for growth"
-].map((item, index) => (
-                  <motion.li 
-                    key={index} 
+                  "Inspire students to grow in the fear of the Lord and live with integrity",
+                  "Promote high moral values and strong personal convictions",
+                  "Encourage students to impact the world through love  and service",
+                  "Provide quality education that equips students to face modern challenges",
+                  "Identify and nurture the unique talents of every student",
+                  "Create a positive and open learning environment for growth"
+                ].map((item, index) => (
+                  <motion.li
+                    key={index}
                     className="flex items-start gap-3"
                     variants={itemVariants}
                   >
@@ -160,7 +160,7 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
               </motion.ul>
 
               {/* Button */}
-              <motion.div 
+              <motion.div
                 className="group"
                 variants={itemVariants}
               >
@@ -187,7 +187,7 @@ const About: React.FC<AboutProps> = ({ badge, title, description, image, statsLa
           </motion.div>
 
           {/* Right Side: Image */}
-          <motion.div 
+          <motion.div
             className="lg:w-1/2 relative"
             variants={imageVariants}
             initial="hidden"
