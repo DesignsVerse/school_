@@ -2,8 +2,8 @@ import { prisma } from "@/lib/prisma"
 import { updateSectionContent } from "../actions"
 import Link from "next/link"
 
-export default async function SectionEditor({ params }: { params: { section: string } }) {
-  const { section } = params
+export default async function SectionEditor({ params }: { params: Promise<{ section: string }> }) {
+  const { section } = await params
   
   const content = await prisma.siteContent.findMany({
     where: { section },
