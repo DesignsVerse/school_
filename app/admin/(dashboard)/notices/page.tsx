@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteNotice, saveNotice } from "./actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function NoticesAdminPage() {
   const notices = await prisma.notice.findMany({
@@ -27,9 +28,12 @@ export default async function NoticesAdminPage() {
           <textarea name="summary" required rows={3} placeholder="Short summary" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="content" required rows={6} placeholder="Full notice content" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save this notice?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Save Notice
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>
@@ -55,7 +59,12 @@ export default async function NoticesAdminPage() {
                     Edit
                   </Link>
                   <form action={deleteNotice.bind(null, notice.id)}>
-                    <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">Delete</button>
+                    <ConfirmSubmitButton
+                      message={`Delete notice "${notice.title}"? This cannot be undone.`}
+                      className="text-sm font-medium text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </ConfirmSubmitButton>
                   </form>
                 </div>
               </div>

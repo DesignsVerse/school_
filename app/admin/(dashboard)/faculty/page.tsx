@@ -2,6 +2,7 @@ import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteFacultyMember, importExistingFaculty, saveFacultyMember } from "./actions"
 import ImageUploadField from "@/components/Admin/ImageUploadField"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function FacultyAdminPage() {
   const members = await prisma.facultyMember.findMany({
@@ -20,12 +21,12 @@ export default async function FacultyAdminPage() {
 
         {members.length === 0 && (
           <form action={importExistingFaculty}>
-            <button
-              type="submit"
+            <ConfirmSubmitButton
+              message="Import all current website faculty into the admin CMS?"
               className="rounded-md bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
             >
               Import Current Website Faculty
-            </button>
+            </ConfirmSubmitButton>
           </form>
         )}
       </div>
@@ -55,9 +56,12 @@ export default async function FacultyAdminPage() {
             Show this teacher on the public website
           </label>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save this faculty member?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Save Faculty Member
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>
@@ -92,7 +96,12 @@ export default async function FacultyAdminPage() {
                     Edit
                   </Link>
                   <form action={deleteFacultyMember.bind(null, member.id)}>
-                    <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">Delete</button>
+                    <ConfirmSubmitButton
+                      message={`Delete ${member.name}? This cannot be undone.`}
+                      className="text-sm font-medium text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </ConfirmSubmitButton>
                   </form>
                 </div>
               </div>

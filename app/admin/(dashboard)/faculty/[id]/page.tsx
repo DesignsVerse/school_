@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveFacultyMember } from "../actions"
 import ImageUploadField from "@/components/Admin/ImageUploadField"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function EditFacultyPage({
   params,
@@ -46,9 +47,12 @@ export default async function EditFacultyPage({
             Show this teacher on the public website
           </label>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save changes to this faculty member?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Update Faculty Member
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { saveBlogPost, deleteBlogPost } from "./actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function BlogAdminPage() {
   const posts = await prisma.blogPost.findMany({
@@ -53,9 +54,12 @@ export default async function BlogAdminPage() {
             <label htmlFor="published" className="text-sm font-medium text-gray-700 dark:text-gray-300">Publish immediately</label>
           </div>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save this blog post?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Save Post
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>
@@ -93,7 +97,12 @@ export default async function BlogAdminPage() {
                         Edit
                       </Link>
                       <form action={deleteBlogPost.bind(null, post.id)}>
-                        <button type="submit" className="text-sm text-red-500 hover:text-red-700">Delete</button>
+                        <ConfirmSubmitButton
+                          message={`Delete blog post "${post.title}"? This cannot be undone.`}
+                          className="text-sm text-red-500 hover:text-red-700"
+                        >
+                          Delete
+                        </ConfirmSubmitButton>
                       </form>
                     </div>
                   </td>

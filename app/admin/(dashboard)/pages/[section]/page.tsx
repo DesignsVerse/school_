@@ -3,6 +3,7 @@ import { updateSectionContent } from "../actions"
 import Link from "next/link"
 import { getSectionDefinition } from "@/lib/admin-sections"
 import ImageUploadField from "@/components/Admin/ImageUploadField"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function SectionEditor({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params
@@ -84,12 +85,12 @@ export default async function SectionEditor({ params }: { params: Promise<{ sect
           ))}
 
           <div className="pt-6 border-t dark:border-gray-700">
-            <button
-              type="submit"
+            <ConfirmSubmitButton
+              message="Save changes to this website section?"
               className="bg-blue-600 text-white px-8 py-3 rounded-md font-semibold hover:bg-blue-700 transition-colors"
             >
               Save Changes
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>

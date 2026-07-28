@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { updateAdmissionStatus } from "./actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function AdmissionsAdminPage() {
   const enquiries = await prisma.admissionEnquiry.findMany({
@@ -64,12 +65,12 @@ export default async function AdmissionsAdminPage() {
                     <option value="admission-in-process">Admission In Process</option>
                     <option value="closed">Closed</option>
                   </select>
-                  <button
-                    type="submit"
+                  <ConfirmSubmitButton
+                    message="Update this admission enquiry status?"
                     className="rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700"
                   >
                     Update
-                  </button>
+                  </ConfirmSubmitButton>
                 </form>
               </div>
             </div>

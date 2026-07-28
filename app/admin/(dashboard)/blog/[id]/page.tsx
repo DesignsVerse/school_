@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveBlogPost } from "../actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function EditBlogPage({
   params,
@@ -44,9 +45,12 @@ export default async function EditBlogPage({
             </label>
           </div>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save changes to this blog post?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Update Post
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>

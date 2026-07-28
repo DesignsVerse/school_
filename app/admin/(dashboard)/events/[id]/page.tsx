@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveSchoolEvent } from "../actions"
 import ImageUploadField from "@/components/Admin/ImageUploadField"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function EditEventPage({
   params,
@@ -48,9 +49,12 @@ export default async function EditEventPage({
             Publish this event
           </label>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save changes to this event?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Update Event
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>

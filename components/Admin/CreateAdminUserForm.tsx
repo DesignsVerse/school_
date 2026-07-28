@@ -2,6 +2,7 @@
 
 import { useActionState, useMemo, useState } from "react"
 import { createAdminUser, type CreateAdminUserState } from "@/app/admin/(dashboard)/users/actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 const initialState: CreateAdminUserState = {}
 
@@ -83,13 +84,13 @@ export default function CreateAdminUserForm() {
           </div>
         )}
 
-        <button
-          type="submit"
+        <ConfirmSubmitButton
+          message="Create this admin login and share these credentials?"
           disabled={pending}
           className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700 disabled:opacity-60"
         >
           {pending ? "Creating Login..." : "Create Admin Login"}
-        </button>
+        </ConfirmSubmitButton>
       </form>
     </div>
   )

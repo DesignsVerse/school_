@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma"
 import { saveSiteContent, deleteSiteContent } from "./actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function SiteContentPage() {
   const contentKeys = await prisma.siteContent.findMany({
@@ -76,12 +77,12 @@ export default async function SiteContentPage() {
             />
           </div>
           <div className="md:col-span-2">
-            <button
-              type="submit"
+            <ConfirmSubmitButton
+              message="Save this content block?"
               className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
             >
               Save Content
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>
@@ -114,9 +115,12 @@ export default async function SiteContentPage() {
                         <p className="mt-1 text-xs uppercase tracking-wide text-gray-400">{item.type}</p>
                       </div>
                       <form action={deleteSiteContent.bind(null, item.id)}>
-                        <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">
+                        <ConfirmSubmitButton
+                          message={`Delete content key "${item.key}" from section "${item.section}"? This cannot be undone.`}
+                          className="text-sm font-medium text-red-500 hover:text-red-700"
+                        >
                           Delete
-                        </button>
+                        </ConfirmSubmitButton>
                       </form>
                     </div>
                     <p className="mt-3 break-words text-sm text-gray-600 dark:text-gray-300">{item.value}</p>

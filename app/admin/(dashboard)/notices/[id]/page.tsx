@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveNotice } from "../actions"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function EditNoticePage({
   params,
@@ -37,9 +38,12 @@ export default async function EditNoticePage({
           <textarea name="summary" required rows={3} defaultValue={notice.summary} placeholder="Short summary" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="content" required rows={6} defaultValue={notice.content} placeholder="Full notice content" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save changes to this notice?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Update Notice
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>

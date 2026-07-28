@@ -2,6 +2,7 @@ import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteSchoolEvent, saveSchoolEvent } from "./actions"
 import ImageUploadField from "@/components/Admin/ImageUploadField"
+import ConfirmSubmitButton from "@/components/Admin/ConfirmSubmitButton"
 
 export default async function EventsAdminPage() {
   const events = await prisma.schoolEvent.findMany({
@@ -32,9 +33,12 @@ export default async function EventsAdminPage() {
             Publish this event
           </label>
           <div className="md:col-span-2">
-            <button type="submit" className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700">
+            <ConfirmSubmitButton
+              message="Save this event?"
+              className="rounded-md bg-blue-600 px-5 py-3 font-semibold text-white hover:bg-blue-700"
+            >
               Save Event
-            </button>
+            </ConfirmSubmitButton>
           </div>
         </form>
       </div>
@@ -69,7 +73,12 @@ export default async function EventsAdminPage() {
                     Edit
                   </Link>
                   <form action={deleteSchoolEvent.bind(null, event.id)}>
-                    <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">Delete</button>
+                    <ConfirmSubmitButton
+                      message={`Delete event "${event.title}"? This cannot be undone.`}
+                      className="text-sm font-medium text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </ConfirmSubmitButton>
                   </form>
                 </div>
               </div>
