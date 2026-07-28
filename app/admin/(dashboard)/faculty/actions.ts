@@ -3,6 +3,15 @@
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
+import { teamMembers } from "@/components/Faculty/teamData"
+
+function toSlug(name: string) {
+  return name
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "")
+}
 
 export async function saveFacultyMember(formData: FormData) {
   const session = await auth()
@@ -60,6 +69,45 @@ export async function deleteFacultyMember(id: string) {
   if (!session) throw new Error("Unauthorized")
 
   await prisma.facultyMember.delete({ where: { id } })
+
+  revalidatePath("/faculty")
+  revalidatePath("/admin/faculty")
+}
+
+export async function importExistingFaculty() {
+  const session = await auth()
+  if (!session) throw new Error("Unauthorized")
+
+  for (const [index, member] of teamMembers.entries()) {
+    const slug = toSlug(member.name) || `faculty-${index + 1}`
+
+    await prisma.facultyMember.upsert({
+      where: { slug },
+      update: {
+        name: member.name,
+        role: member.role,
+        phone: member.phone || null,
+        imageSrc: member.imageSrc,
+        about: member.about,
+        description: member.description || null,
+        highlights: member.highlights || [],
+        sortOrder: index,
+        published: true,
+      },
+      create: {
+        name: member.name,
+        slug,
+        role: member.role,
+        phone: member.phone || null,
+        imageSrc: member.imageSrc,
+        about: member.about,
+        description: member.description || null,
+        highlights: member.highlights || [],
+        sortOrder: index,
+        published: true,
+      },
+    })
+  }
 
   revalidatePath("/faculty")
   revalidatePath("/admin/faculty")

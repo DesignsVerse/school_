@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma"
-import { deleteFacultyMember, saveFacultyMember } from "./actions"
+import { deleteFacultyMember, importExistingFaculty, saveFacultyMember } from "./actions"
 
 export default async function FacultyAdminPage() {
   const members = await prisma.facultyMember.findMany({
@@ -8,10 +8,33 @@ export default async function FacultyAdminPage() {
 
   return (
     <div>
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Faculty / Teachers</h1>
-      <p className="mt-2 max-w-3xl text-gray-600 dark:text-gray-300">
-        Manage teacher profiles, roles, phone numbers, profile images, and highlight points.
-      </p>
+      <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Faculty / Teachers</h1>
+          <p className="mt-2 max-w-3xl text-gray-600 dark:text-gray-300">
+            Manage teacher profiles, roles, phone numbers, profile images, and highlight points.
+          </p>
+        </div>
+
+        {members.length === 0 && (
+          <form action={importExistingFaculty}>
+            <button
+              type="submit"
+              className="rounded-md bg-emerald-600 px-5 py-3 text-sm font-semibold text-white hover:bg-emerald-700"
+            >
+              Import Current Website Faculty
+            </button>
+          </form>
+        )}
+      </div>
+
+      {members.length === 0 && (
+        <div className="mt-6 rounded-lg border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900">
+          The public website still has faculty profiles in the old static file, but they are not in
+          the CMS database yet. Click <strong>Import Current Website Faculty</strong> to bring them
+          into admin so you can edit them here.
+        </div>
+      )}
 
       <div className="mt-8 rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Add Faculty Member</h2>
@@ -39,6 +62,7 @@ export default async function FacultyAdminPage() {
 
       <div className="mt-8 rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
         <h2 className="text-xl font-semibold text-gray-900 dark:text-white">Current Faculty</h2>
+        <p className="mt-1 text-sm text-gray-500">{members.length} profiles in CMS</p>
         <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-2">
           {members.map((member) => (
             <div key={member.id} className="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
@@ -46,6 +70,7 @@ export default async function FacultyAdminPage() {
                 <div>
                   <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
                   <p className="mt-1 text-sm text-blue-600">{member.role}</p>
+                  <p className="mt-1 text-xs text-gray-400">Slug: {member.slug}</p>
                   <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{member.about}</p>
                 </div>
                 <form action={deleteFacultyMember.bind(null, member.id)}>
