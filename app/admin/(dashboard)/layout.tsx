@@ -18,8 +18,11 @@ export default async function AdminLayout({
       <aside className="w-64 bg-white dark:bg-gray-800 shadow-md flex flex-col justify-between">
         <div>
           <div className="p-6">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Admin CRM</h2>
-            <p className="text-sm text-gray-500 mb-6">Welcome, {session.user?.name}</p>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Website Admin</h2>
+            <p className="text-sm text-gray-500">Welcome, {session.user?.name || session.user?.email}</p>
+            <p className="mt-2 text-xs text-gray-500">
+              Manage homepage content, blog posts, and admin logins.
+            </p>
           </div>
           <nav className="mt-6 flex flex-col px-4 space-y-2">
             <Link
@@ -38,13 +41,19 @@ export default async function AdminLayout({
               href="/admin/pages"
               className="px-4 py-2 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 rounded-md"
             >
-              Manage Pages
+              Website Content
             </Link>
             <Link
               href="/admin/blog"
               className="px-4 py-2 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 rounded-md"
             >
               Blog Posts
+            </Link>
+            <Link
+              href="/admin/users"
+              className="px-4 py-2 text-gray-700 hover:bg-gray-200 dark:hover:bg-gray-700 dark:text-gray-200 rounded-md"
+            >
+              Admin Users
             </Link>
           </nav>
         </div>

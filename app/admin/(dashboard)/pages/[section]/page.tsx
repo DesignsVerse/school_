@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/prisma"
 import { updateSectionContent } from "../actions"
 import Link from "next/link"
+import { getSectionDefinition } from "@/lib/admin-sections"
 
 export default async function SectionEditor({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params
@@ -14,20 +15,47 @@ export default async function SectionEditor({ params }: { params: Promise<{ sect
     return <div>Section not found.</div>
   }
 
+  const sectionDefinition = getSectionDefinition(section)
+
   return (
     <div>
       <div className="flex items-center gap-4 mb-6">
         <Link href="/admin/pages" className="text-blue-600 hover:underline">← Back to Pages</Link>
-        <h1 className="text-3xl font-bold capitalize text-gray-900 dark:text-white">Edit {section}</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+          Edit {sectionDefinition?.title || section}
+        </h1>
+      </div>
+
+      <div className="mb-6 rounded-lg border border-blue-100 bg-blue-50 p-5 text-sm text-blue-900">
+        <p className="font-semibold">
+          {sectionDefinition?.description || "Update the content below and save your changes."}
+        </p>
+        <p className="mt-2">
+          Changes update the website content for this section. Use clear text and image URLs
+          that already exist in the website assets.
+        </p>
+        {sectionDefinition && (
+          <Link href={sectionDefinition.publicPath} className="mt-3 inline-block font-semibold underline">
+            View this section on the website
+          </Link>
+        )}
       </div>
 
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-sm max-w-4xl">
         <form action={updateSectionContent.bind(null, section)} className="space-y-8">
           {content.map((item) => (
-            <div key={item.id}>
-              <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+            <div key={item.id} className="rounded-lg border border-gray-200 p-5 dark:border-gray-700">
+              <div className="mb-4 flex flex-wrap items-center gap-3">
+                <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300">
                 {item.label || item.key}
-              </label>
+                </label>
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium uppercase text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                  {item.type}
+                </span>
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-500 dark:bg-gray-700 dark:text-gray-300">
+                  Key: {item.key}
+                </span>
+              </div>
               
               {item.type === "textarea" ? (
                 <textarea
