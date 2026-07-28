@@ -13,7 +13,7 @@ function toSlug(name: string) {
 async function main() {
   // 1. Seed Admin User
   const existingAdmin = await prisma.adminUser.findUnique({
-    where: { email: "admin@example.com" },
+    where: { email: "admin@bethelsec.school" },
   });
 
   if (!existingAdmin) {
@@ -21,11 +21,11 @@ async function main() {
     await prisma.adminUser.create({
       data: {
         name: "Admin",
-        email: "admin@example.com",
+        email: "admin@bethelsec.school",
         password: hashedPassword,
       },
     });
-    console.log("Created default admin user: admin@example.com / admin123");
+    console.log("Created default admin user: admin@bethelsec.school / admin123");
   }
 
   // 2. Seed Site Content for Home Page
