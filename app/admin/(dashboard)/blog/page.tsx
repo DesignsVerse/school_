@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { saveBlogPost, deleteBlogPost } from "./actions"
 
@@ -83,10 +84,18 @@ export default async function BlogAdminPage() {
                       <span className="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">Draft</span>
                     )}
                   </td>
-                  <td className="py-3 px-4 text-right flex justify-end gap-2">
-                    <form action={deleteBlogPost.bind(null, post.id)}>
-                      <button type="submit" className="text-red-500 hover:text-red-700 text-sm">Delete</button>
-                    </form>
+                  <td className="py-3 px-4 text-right">
+                    <div className="flex justify-end gap-3">
+                      <Link
+                        href={`/admin/blog/${post.id}`}
+                        className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                      >
+                        Edit
+                      </Link>
+                      <form action={deleteBlogPost.bind(null, post.id)}>
+                        <button type="submit" className="text-sm text-red-500 hover:text-red-700">Delete</button>
+                      </form>
+                    </div>
                   </td>
                 </tr>
               ))}

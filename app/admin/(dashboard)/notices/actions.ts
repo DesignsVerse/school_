@@ -3,11 +3,13 @@
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 
 export async function saveNotice(formData: FormData) {
   const session = await auth()
   if (!session) throw new Error("Unauthorized")
 
+  const id = (formData.get("id") as string) || ""
   const title = (formData.get("title") as string) || ""
   const slug = (formData.get("slug") as string) || ""
   const summary = (formData.get("summary") as string) || ""
@@ -17,29 +19,35 @@ export async function saveNotice(formData: FormData) {
 
   if (!title || !slug || !summary || !content || !noticeDate) return
 
-  await prisma.notice.upsert({
-    where: { slug },
-    update: {
-      title,
-      summary,
-      content,
-      noticeDate: new Date(noticeDate),
-      published,
-      publishedAt: published ? new Date() : null,
-    },
-    create: {
-      title,
-      slug,
-      summary,
-      content,
-      noticeDate: new Date(noticeDate),
-      published,
-      publishedAt: published ? new Date() : null,
-    },
-  })
+  const data = {
+    title,
+    slug,
+    summary,
+    content,
+    noticeDate: new Date(noticeDate),
+    published,
+    publishedAt: published ? new Date() : null,
+  }
+
+  if (id) {
+    await prisma.notice.update({
+      where: { id },
+      data,
+    })
+  } else {
+    await prisma.notice.upsert({
+      where: { slug },
+      update: data,
+      create: data,
+    })
+  }
 
   revalidatePath("/noticeboard")
   revalidatePath("/admin/notices")
+  if (id) {
+    revalidatePath(`/admin/notices/${id}`)
+    redirect("/admin/notices")
+  }
 }
 
 export async function deleteNotice(id: string) {

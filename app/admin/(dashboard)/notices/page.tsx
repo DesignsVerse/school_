@@ -1,3 +1,4 @@
+import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteNotice, saveNotice } from "./actions"
 
@@ -46,9 +47,17 @@ export default async function NoticesAdminPage() {
                   </p>
                   <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{notice.summary}</p>
                 </div>
-                <form action={deleteNotice.bind(null, notice.id)}>
-                  <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">Delete</button>
-                </form>
+                <div className="flex flex-col items-end gap-2">
+                  <Link
+                    href={`/admin/notices/${notice.id}`}
+                    className="text-sm font-medium text-blue-600 hover:text-blue-800"
+                  >
+                    Edit
+                  </Link>
+                  <form action={deleteNotice.bind(null, notice.id)}>
+                    <button type="submit" className="text-sm font-medium text-red-500 hover:text-red-700">Delete</button>
+                  </form>
+                </div>
               </div>
             </div>
           ))}

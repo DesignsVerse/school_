@@ -3,6 +3,7 @@
 import { auth } from "@/auth"
 import { prisma } from "@/lib/prisma"
 import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
 import { teamMembers } from "@/components/Faculty/teamData"
 
 function toSlug(name: string) {
@@ -17,6 +18,7 @@ export async function saveFacultyMember(formData: FormData) {
   const session = await auth()
   if (!session) throw new Error("Unauthorized")
 
+  const id = (formData.get("id") as string) || ""
   const name = (formData.get("name") as string) || ""
   const slug = (formData.get("slug") as string) || ""
   const role = (formData.get("role") as string) || ""
@@ -33,35 +35,38 @@ export async function saveFacultyMember(formData: FormData) {
 
   if (!name || !slug || !role || !imageSrc || !about) return
 
-  await prisma.facultyMember.upsert({
-    where: { slug },
-    update: {
-      name,
-      role,
-      phone: phone || null,
-      imageSrc,
-      about,
-      description: description || null,
-      highlights,
-      sortOrder,
-      published,
-    },
-    create: {
-      name,
-      slug,
-      role,
-      phone: phone || null,
-      imageSrc,
-      about,
-      description: description || null,
-      highlights,
-      sortOrder,
-      published,
-    },
-  })
+  const data = {
+    name,
+    slug,
+    role,
+    phone: phone || null,
+    imageSrc,
+    about,
+    description: description || null,
+    highlights,
+    sortOrder,
+    published,
+  }
+
+  if (id) {
+    await prisma.facultyMember.update({
+      where: { id },
+      data,
+    })
+  } else {
+    await prisma.facultyMember.upsert({
+      where: { slug },
+      update: data,
+      create: data,
+    })
+  }
 
   revalidatePath("/faculty")
   revalidatePath("/admin/faculty")
+  if (id) {
+    revalidatePath(`/admin/faculty/${id}`)
+    redirect("/admin/faculty")
+  }
 }
 
 export async function deleteFacultyMember(id: string) {
