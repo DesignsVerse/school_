@@ -34,7 +34,8 @@ export default function AdminLogin() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100 dark:bg-gray-900">
       <div className="w-full max-w-md p-8 space-y-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white">Admin Login</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-900 dark:text-white">Admin Panel for School</h2>
+        <p className="text-center text-sm text-gray-500">Sign in to manage the school website</p>
         {error && <p className="text-red-500 text-center">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>

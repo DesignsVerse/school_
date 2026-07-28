@@ -21,10 +21,10 @@ export default async function AdminLayout({
       <aside className="w-72 border-r border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800 shadow-md flex flex-col justify-between">
         <div>
           <div className="border-b border-gray-100 bg-gradient-to-br from-blue-50 to-white p-6 dark:border-gray-700 dark:from-gray-800 dark:to-gray-800">
-            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Website Admin</h2>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white">Admin Panel for School</h2>
             <p className="mt-1 text-sm text-gray-500">Welcome, {session.user?.name || session.user?.email}</p>
             <p className="mt-3 text-xs text-gray-500">
-              Manage homepage content, blog posts, and admin logins.
+              Manage notices, teachers, events, admissions, and website content.
             </p>
           </div>
           <AdminSidebarNav />
