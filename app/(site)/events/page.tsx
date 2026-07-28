@@ -2,8 +2,10 @@ import SectionHeader from '@/components/Common/SectionHeader'
 import Event from '@/components/Event/Event'
 import React from 'react'
 import { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import eventData from "@/components/Event/eventdata";
+import { getPublishedEvents } from "@/lib/cms-data";
+
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "Events | Bethel Secondary School - Upcoming Activities",
   description:
@@ -33,26 +35,7 @@ export const metadata: Metadata = {
 };
 
 const Events = async () => {
-  const eventsFromDb = await prisma.schoolEvent.findMany({
-    where: { published: true },
-    orderBy: [{ eventDate: "asc" }, { createdAt: "desc" }],
-  })
-
-  const events =
-    eventsFromDb.length > 0
-      ? eventsFromDb.map((event) => ({
-          id: event.id,
-          slug: event.slug,
-          category: event.category,
-          categoryColor: event.categoryColor,
-          location: event.location,
-          time: event.time,
-          title: event.title,
-          description: event.description,
-          image: event.image,
-          price: "",
-        }))
-      : eventData
+  const events = await getPublishedEvents()
 
   return (
     <>

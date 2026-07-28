@@ -3,6 +3,8 @@ import { redirect } from "next/navigation"
 import Link from "next/link"
 import AdminSidebarNav from "@/components/Admin/AdminSidebarNav"
 
+export const dynamic = "force-dynamic"
+
 export default async function AdminLayout({
   children,
 }: {

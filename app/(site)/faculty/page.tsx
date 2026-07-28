@@ -2,8 +2,9 @@ import SectionHeader from '@/components/Common/SectionHeader'
 import TeamPage from '@/components/Faculty/team'
 import React from 'react'
 import { Metadata } from "next";
-import { prisma } from "@/lib/prisma";
-import { teamMembers as fallbackMembers } from "@/components/Faculty/teamData";
+import { getPublishedFaculty } from "@/lib/cms-data";
+
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
   title: "Faculty & Staff | Bethel Secondary School - Meet Our Team",
@@ -34,23 +35,7 @@ export const metadata: Metadata = {
 };
 
 const Faculty = async () => {
-  const membersFromDb = await prisma.facultyMember.findMany({
-    where: { published: true },
-    orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
-  })
-
-  const members =
-    membersFromDb.length > 0
-      ? membersFromDb.map((member) => ({
-          name: member.name,
-          about: member.about,
-          phone: member.phone || "",
-          imageSrc: member.imageSrc,
-          role: member.role,
-          description: member.description || "",
-          highlights: member.highlights,
-        }))
-      : fallbackMembers
+  const members = await getPublishedFaculty()
 
   return (
     <>

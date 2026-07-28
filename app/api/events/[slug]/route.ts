@@ -6,24 +6,28 @@ export async function GET(
 ) {
   const { slug } = await params
 
-  const event = await prisma.schoolEvent.findUnique({
-    where: { slug },
-  })
+  try {
+    const event = await prisma.schoolEvent.findUnique({
+      where: { slug },
+    })
 
-  if (!event || !event.published) {
+    if (!event || !event.published) {
+      return Response.json(null, { status: 404 })
+    }
+
+    return Response.json({
+      id: event.id,
+      slug: event.slug,
+      category: event.category,
+      categoryColor: event.categoryColor,
+      location: event.location,
+      time: event.time,
+      title: event.title,
+      description: event.description,
+      image: event.image,
+      price: "",
+    })
+  } catch {
     return Response.json(null, { status: 404 })
   }
-
-  return Response.json({
-    id: event.id,
-    slug: event.slug,
-    category: event.category,
-    categoryColor: event.categoryColor,
-    location: event.location,
-    time: event.time,
-    title: event.title,
-    description: event.description,
-    image: event.image,
-    price: "",
-  })
 }

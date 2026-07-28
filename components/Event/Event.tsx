@@ -4,8 +4,13 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import eventData from "./eventdata";
 import SingleFeature from "./SingleFeature";
+import type { Feature } from "@/types/event";
 
-const Event: React.FC = () => {
+type EventProps = {
+  events?: Feature[]
+}
+
+const Event: React.FC<EventProps> = ({ events = eventData }) => {
   const [visibleEvents, setVisibleEvents] = useState(3);
   const [autoPlay, setAutoPlay] = useState(true);
   const [ref, inView] = useInView({
@@ -15,19 +20,19 @@ const Event: React.FC = () => {
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    if (autoPlay && inView && eventData.length > visibleEvents) {
+    if (autoPlay && inView && events.length > visibleEvents) {
       interval = setInterval(() => {
-        setVisibleEvents((prev) => (prev + 3 > eventData.length ? 3 : prev + 3));
+        setVisibleEvents((prev) => (prev + 3 > events.length ? 3 : prev + 3));
       }, 5000);
     }
     return () => clearInterval(interval);
-  }, [autoPlay, visibleEvents, inView]);
+  }, [autoPlay, visibleEvents, inView, events.length]);
 
   const handleViewMore = () => {
-    setVisibleEvents((prev) => Math.min(prev + 3, eventData.length));
+    setVisibleEvents((prev) => Math.min(prev + 3, events.length));
   };
 
-  const currentFeatures = eventData.slice(0, visibleEvents);
+  const currentFeatures = events.slice(0, visibleEvents);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -104,7 +109,7 @@ const Event: React.FC = () => {
         </motion.div>
 
         {/* View More Button */}
-        {visibleEvents < eventData.length && (
+        {visibleEvents < events.length && (
           <motion.div
             className="flex justify-center mt-6 sm:mt-10"
             initial={{ opacity: 0 }}
