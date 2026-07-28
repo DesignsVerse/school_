@@ -44,7 +44,8 @@ export async function POST(request: Request) {
     return Response.json({ error: "Image must be 5MB or smaller." }, { status: 400 })
   }
 
-  const bytes = Buffer.from(await file.arrayBuffer())
+  const arrayBuffer = await file.arrayBuffer()
+  const bytes = new Uint8Array(arrayBuffer)
   const extension = path.extname(file.name) || `.${file.type.split("/")[1] || "jpg"}`
   const baseName = sanitizeFilename(path.basename(file.name, extension)) || "image"
   const filename = `${Date.now()}-${baseName}${extension}`
@@ -60,7 +61,7 @@ export async function POST(request: Request) {
     })
   } catch {
     // Serverless hosts like Vercel can't write to public/, so store as data URL.
-    const dataUrl = `data:${file.type};base64,${bytes.toString("base64")}`
+    const dataUrl = `data:${file.type};base64,${Buffer.from(bytes).toString("base64")}`
     return Response.json({
       url: dataUrl,
       filename,
