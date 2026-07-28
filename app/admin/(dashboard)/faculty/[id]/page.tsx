@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveFacultyMember } from "../actions"
+import ImageUploadField from "@/components/Admin/ImageUploadField"
 
 export default async function EditFacultyPage({
   params,
@@ -29,7 +30,13 @@ export default async function EditFacultyPage({
           <input name="slug" required defaultValue={member.slug} placeholder="teacher-slug" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="role" required defaultValue={member.role} placeholder="Role / designation" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="phone" defaultValue={member.phone || ""} placeholder="Phone number" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
-          <input name="imageSrc" required defaultValue={member.imageSrc} placeholder="/images/faculty/teacher.jpg" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
+          <ImageUploadField
+            name="imageSrc"
+            label="Teacher Photo"
+            required
+            defaultValue={member.imageSrc}
+            className="md:col-span-2"
+          />
           <input name="sortOrder" type="number" defaultValue={member.sortOrder} placeholder="Sort order" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="about" required rows={3} defaultValue={member.about} placeholder="Short about text" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="description" rows={4} defaultValue={member.description || ""} placeholder="Longer profile description" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />

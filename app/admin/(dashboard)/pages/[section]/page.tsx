@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma"
 import { updateSectionContent } from "../actions"
 import Link from "next/link"
 import { getSectionDefinition } from "@/lib/admin-sections"
+import ImageUploadField from "@/components/Admin/ImageUploadField"
 
 export default async function SectionEditor({ params }: { params: Promise<{ section: string }> }) {
   const { section } = await params
@@ -31,8 +32,7 @@ export default async function SectionEditor({ params }: { params: Promise<{ sect
           {sectionDefinition?.description || "Update the content below and save your changes."}
         </p>
         <p className="mt-2">
-          Changes update the website content for this section. Use clear text and image URLs
-          that already exist in the website assets.
+          Changes update the website content for this section. Upload images directly for image fields.
         </p>
         {sectionDefinition && (
           <Link href={sectionDefinition.publicPath} className="mt-3 inline-block font-semibold underline">
@@ -65,19 +65,11 @@ export default async function SectionEditor({ params }: { params: Promise<{ sect
                   className="w-full p-3 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 />
               ) : item.type === "image" ? (
-                <div className="space-y-4">
-                  <input
-                    name={item.key}
-                    defaultValue={item.value}
-                    className="w-full p-3 border rounded-md dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                    placeholder="Image URL"
-                  />
-                  {item.value && (
-                    <div className="relative w-40 h-24 rounded-lg overflow-hidden border">
-                      <img src={item.value} alt={item.key} className="object-cover w-full h-full" />
-                    </div>
-                  )}
-                </div>
+                <ImageUploadField
+                  name={item.key}
+                  label="Upload image"
+                  defaultValue={item.value}
+                />
               ) : (
                 <input
                   name={item.key}

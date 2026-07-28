@@ -55,6 +55,7 @@ const TeamDetailsSection = ({ member }: TeamDetailsSectionProps) => {
                 alt={member.name}
                 width={300}
                 height={400}
+                unoptimized={member.imageSrc.startsWith("data:")}
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
               />
               <motion.div

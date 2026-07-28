@@ -17,6 +17,7 @@ const SingleFeature: React.FC<SingleFeatureProps> = ({ feature }) => {
           src={image}
           alt={title}
           fill
+          unoptimized={image.startsWith("data:")}
           className="object-cover"
           sizes="(max-width: 640px) 100vw, (max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteFacultyMember, importExistingFaculty, saveFacultyMember } from "./actions"
+import ImageUploadField from "@/components/Admin/ImageUploadField"
 
 export default async function FacultyAdminPage() {
   const members = await prisma.facultyMember.findMany({
@@ -44,7 +45,7 @@ export default async function FacultyAdminPage() {
           <input name="slug" required placeholder="teacher-slug" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="role" required placeholder="Role / designation" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="phone" placeholder="Phone number" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
-          <input name="imageSrc" required placeholder="/images/faculty/teacher.jpg" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
+          <ImageUploadField name="imageSrc" label="Teacher Photo" required className="md:col-span-2" />
           <input name="sortOrder" type="number" defaultValue={0} placeholder="Sort order" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="about" required rows={3} placeholder="Short about text" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="description" rows={4} placeholder="Longer profile description" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
@@ -68,11 +69,20 @@ export default async function FacultyAdminPage() {
           {members.map((member) => (
             <div key={member.id} className="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
-                  <p className="mt-1 text-sm text-blue-600">{member.role}</p>
-                  <p className="mt-1 text-xs text-gray-400">Slug: {member.slug}</p>
-                  <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{member.about}</p>
+                <div className="flex gap-4">
+                  {member.imageSrc ? (
+                    <img
+                      src={member.imageSrc}
+                      alt={member.name}
+                      className="h-16 w-16 rounded-lg object-cover"
+                    />
+                  ) : null}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name}</h3>
+                    <p className="mt-1 text-sm text-blue-600">{member.role}</p>
+                    <p className="mt-1 text-xs text-gray-400">Slug: {member.slug}</p>
+                    <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{member.about}</p>
+                  </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
                   <Link

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { prisma } from "@/lib/prisma"
 import { deleteSchoolEvent, saveSchoolEvent } from "./actions"
+import ImageUploadField from "@/components/Admin/ImageUploadField"
 
 export default async function EventsAdminPage() {
   const events = await prisma.schoolEvent.findMany({
@@ -23,7 +24,7 @@ export default async function EventsAdminPage() {
           <input name="categoryColor" defaultValue="bg-blue-500" placeholder="Tailwind color class" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="location" required placeholder="Location" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="time" required placeholder="March 30, 2026 - 2:00 PM" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
-          <input name="image" required placeholder="/images/events/event.jpg" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
+          <ImageUploadField name="image" label="Event Image" required className="md:col-span-2" />
           <input name="eventDate" type="date" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="description" required rows={5} placeholder="Event description" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <label className="flex items-center gap-2 rounded-md border p-3 text-sm md:col-span-2 dark:border-gray-600 dark:text-white">
@@ -44,12 +45,21 @@ export default async function EventsAdminPage() {
           {events.map((event) => (
             <div key={event.id} className="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
               <div className="flex items-start justify-between gap-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{event.title}</h3>
-                  <p className="mt-1 text-sm text-gray-500">
-                    {event.category} | {event.location} | {event.time}
-                  </p>
-                  <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{event.description}</p>
+                <div className="flex gap-4">
+                  {event.image ? (
+                    <img
+                      src={event.image}
+                      alt={event.title}
+                      className="h-16 w-24 rounded-lg object-cover"
+                    />
+                  ) : null}
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{event.title}</h3>
+                    <p className="mt-1 text-sm text-gray-500">
+                      {event.category} | {event.location} | {event.time}
+                    </p>
+                    <p className="mt-3 text-sm text-gray-600 dark:text-gray-300">{event.description}</p>
+                  </div>
                 </div>
                 <div className="flex flex-col items-end gap-2">
                   <Link

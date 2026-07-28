@@ -2,6 +2,7 @@ import Link from "next/link"
 import { notFound } from "next/navigation"
 import { prisma } from "@/lib/prisma"
 import { saveSchoolEvent } from "../actions"
+import ImageUploadField from "@/components/Admin/ImageUploadField"
 
 export default async function EditEventPage({
   params,
@@ -33,7 +34,13 @@ export default async function EditEventPage({
           <input name="categoryColor" defaultValue={event.categoryColor} placeholder="Tailwind color class" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="location" required defaultValue={event.location} placeholder="Location" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <input name="time" required defaultValue={event.time} placeholder="March 30, 2026 - 2:00 PM" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
-          <input name="image" required defaultValue={event.image} placeholder="/images/events/event.jpg" className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
+          <ImageUploadField
+            name="image"
+            label="Event Image"
+            required
+            defaultValue={event.image}
+            className="md:col-span-2"
+          />
           <input name="eventDate" type="date" defaultValue={eventDate} className="rounded-md border p-3 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <textarea name="description" required rows={5} defaultValue={event.description} placeholder="Event description" className="rounded-md border p-3 md:col-span-2 dark:border-gray-600 dark:bg-gray-700 dark:text-white" />
           <label className="flex items-center gap-2 rounded-md border p-3 text-sm md:col-span-2 dark:border-gray-600 dark:text-white">
