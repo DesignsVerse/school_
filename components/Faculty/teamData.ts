@@ -1,14 +1,4 @@
-// data/teamData.ts
-export type TeamMember = {
-    name: string;
-    about: string;
-    phone: string;
-    imageSrc: string;
-    role: string;
-    socialLinks?: { platform: string; icon: string }[];
-    description?: string;
-    highlights?: string[];
-  };
+import type { TeamMember } from "@/types/faculty"
   
   export const teamMembers: TeamMember[] = [
     {

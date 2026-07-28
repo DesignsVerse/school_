@@ -3,10 +3,15 @@
 import { useState, useRef } from "react";
 import TeamDetailsSection from "./TeamDetailsSection";
 import TeamGridSection from "./TeamGridSection";
-import { teamMembers, TeamMember } from "./teamData";
+import { teamMembers as fallbackMembers } from "./teamData";
+import type { TeamMember } from "@/types/faculty";
 
-export default function TeamPage() {
-  const [selectedMember, setSelectedMember] = useState<TeamMember>(teamMembers[0]);
+type TeamPageProps = {
+  members?: TeamMember[]
+}
+
+export default function TeamPage({ members = fallbackMembers }: TeamPageProps) {
+  const [selectedMember, setSelectedMember] = useState<TeamMember>(members[0] || fallbackMembers[0]);
   const detailsRef = useRef<HTMLDivElement>(null);
 
   const handleMemberClick = (member: TeamMember) => {
@@ -28,7 +33,7 @@ export default function TeamPage() {
       <div ref={detailsRef}>
         <TeamDetailsSection member={selectedMember} />
       </div>
-      <TeamGridSection members={teamMembers} onMemberClick={handleMemberClick} />
+      <TeamGridSection members={members} onMemberClick={handleMemberClick} />
     </div>
   );
 }

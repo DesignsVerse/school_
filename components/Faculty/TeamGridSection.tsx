@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TeamMember } from "./teamData";
+import type { TeamMember } from "@/types/faculty";
 
 type TeamGridSectionProps = {
   members: TeamMember[];

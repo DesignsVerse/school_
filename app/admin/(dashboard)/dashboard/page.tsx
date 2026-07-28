@@ -90,6 +90,35 @@ export default async function AdminDashboard() {
           ))}
         </div>
       </div>
+
+      <div className="mt-10 rounded-lg bg-white p-6 shadow-sm dark:bg-gray-800">
+        <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">Recommended CMS Modules</h2>
+        <p className="mt-2 max-w-3xl text-sm text-gray-500">
+          These are the next best admin modules to add so the panel becomes a full school CMS
+          instead of only a homepage editor.
+        </p>
+
+        <div className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {[
+            ["Noticeboard", "Create school notices directly in admin instead of relying on an external feed.", "/admin/notices"],
+            ["Faculty / Teachers", "Manage teacher names, roles, photos, and department details.", "/admin/faculty"],
+            ["Events", "Add upcoming events, dates, venue details, and featured event banners.", "/admin/events"],
+            ["Gallery", "Upload or manage activity photos and videos from one place."],
+            ["Admission Enquiries", "Store admission form submissions and let staff track follow-ups.", "/admin/admissions"],
+            ["Contact And Settings", "Edit phone numbers, address, email, social links, and SEO defaults."],
+          ].map(([title, description, href]) => (
+            <div key={title} className="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+              <h3 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h3>
+              <p className="mt-2 text-sm text-gray-500">{description}</p>
+              {href && (
+                <Link href={href} className="mt-3 inline-block text-sm font-semibold text-blue-600 hover:underline">
+                  Open module
+                </Link>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

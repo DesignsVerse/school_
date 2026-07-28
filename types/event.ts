@@ -7,6 +7,6 @@ export interface Feature {
   time: string;
   title: string;
   description: string;
-  price: string;
+  price?: string;
   image: string;
 }

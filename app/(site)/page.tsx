@@ -10,6 +10,7 @@ import Event from "@/components/Event";
 import FAQ from "@/components/FAQ";
 import Course from "@/components/Course";
 import Activitie from "@/components/Activitie";
+import eventData from "@/components/Event/eventdata";
 
 // Optimized Metadata for SEO
 export const metadata: Metadata = {
@@ -41,10 +42,33 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const content = await prisma.siteContent.findMany();
+  const [content, eventsFromDb] = await Promise.all([
+    prisma.siteContent.findMany(),
+    prisma.schoolEvent.findMany({
+      where: { published: true },
+      orderBy: [{ eventDate: "asc" }, { createdAt: "desc" }],
+      take: 6,
+    }),
+  ]);
   
   const getVal = (section: string, key: string, fallback: string) => 
     content.find(c => c.section === section && c.key === key)?.value || fallback;
+
+  const events =
+    eventsFromDb.length > 0
+      ? eventsFromDb.map((event) => ({
+          id: event.id,
+          slug: event.slug,
+          category: event.category,
+          categoryColor: event.categoryColor,
+          location: event.location,
+          time: event.time,
+          title: event.title,
+          description: event.description,
+          image: event.image,
+          price: "",
+        }))
+      : eventData;
 
   // Structured Data for Schema.org
   const homeSchema = {
@@ -89,7 +113,7 @@ export default async function Home() {
         statsLabel={getVal("about", "stats_label", "Successfully Completed")}
         statsValue={getVal("about", "stats_value", "183K+")}
       />
-      <Event />
+      <Event events={events} />
       <FAQ />
       {/* <Course /> */}
       <Testimonial />

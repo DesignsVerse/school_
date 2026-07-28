@@ -38,6 +38,15 @@ const AdmissionForm = () => {
   });
 
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [submitState, setSubmitState] = useState<{
+    loading: boolean;
+    success: boolean;
+    error: string;
+  }>({
+    loading: false,
+    success: false,
+    error: "",
+  });
 
   // Enhanced change handler to restrict phone number fields to 10 digits
   const handleChange = (
@@ -94,13 +103,50 @@ const AdmissionForm = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (validateForm()) {
-      console.log("Form Data:", formData);
-      alert("Form submitted successfully!");
+      setSubmitState({ loading: true, success: false, error: "" });
+
+      const payload = {
+        ...formData,
+        dob: formData.dob ? formData.dob.toISOString() : null,
+        interactionDate: formData.interactionDate ? formData.interactionDate.toISOString() : null,
+        documentNames: Object.values(formData.documents)
+          .filter(Boolean)
+          .map((file) => file?.name || ""),
+        photoNames: Object.values(formData.photos)
+          .filter(Boolean)
+          .map((file) => file?.name || ""),
+      };
+
+      try {
+        const response = await fetch("/api/admissions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to submit form");
+        }
+
+        setSubmitState({ loading: false, success: true, error: "" });
+      } catch (error) {
+        setSubmitState({
+          loading: false,
+          success: false,
+          error: "We could not submit your enquiry right now. Please try again.",
+        });
+      }
     } else {
-      alert("Please fill all required fields correctly.");
+      setSubmitState({
+        loading: false,
+        success: false,
+        error: "Please fill all required fields correctly.",
+      });
     }
   };
 
@@ -607,13 +653,24 @@ const AdmissionForm = () => {
                   <div className="text-sm text-gray-500">
                     All fields marked with <span className="text-red-500">*</span> are mandatory
                   </div>
+                  {submitState.success && (
+                    <div className="rounded-md bg-green-50 px-4 py-2 text-sm text-green-700">
+                      Admission enquiry submitted successfully.
+                    </div>
+                  )}
+                  {submitState.error && (
+                    <div className="rounded-md bg-red-50 px-4 py-2 text-sm text-red-700">
+                      {submitState.error}
+                    </div>
+                  )}
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
+                    disabled={submitState.loading}
                     className="px-8 py-3 bg-gradient-to-r from-blue-600 to-teal-600 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                   >
-                    Submit Application
+                    {submitState.loading ? "Submitting..." : "Submit Application"}
                   </motion.button>
                 </div>
               </motion.div>

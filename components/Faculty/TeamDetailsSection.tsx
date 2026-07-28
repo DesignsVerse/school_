@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { TeamMember } from "./teamData";
+import type { TeamMember } from "@/types/faculty";
 import { useState } from "react";
 
 type TeamDetailsSectionProps = {

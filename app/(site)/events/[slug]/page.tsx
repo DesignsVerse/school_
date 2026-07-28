@@ -4,15 +4,43 @@ import Image from "next/image";
 import { useParams } from "next/navigation"; // For App Router; use `next/router` for Pages Router
 import eventData from "@/components/Event/eventdata"; // Import your event data
 import { notFound } from "next/navigation"; // For handling 404
+import { useEffect, useState } from "react";
+import type { Feature } from "@/types/event";
 
 const EventSlugPage: React.FC = () => {
   const params = useParams(); // Get dynamic route params (App Router)
   const slug = params?.slug as string; // Extract slug from params
+  const [event, setEvent] = useState<Feature | null | undefined>(undefined);
 
-  // Find the event matching the slug
-  const event = eventData.find((item) => item.slug === slug);
+  useEffect(() => {
+    let cancelled = false;
 
-  // If no event is found, trigger a 404 page
+    fetch(`/api/events/${slug}`)
+      .then((response) => (response.ok ? response.json() : null))
+      .then((data) => {
+        if (cancelled) return;
+
+        if (data) {
+          setEvent(data);
+        } else {
+          setEvent(eventData.find((item) => item.slug === slug) || null);
+        }
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setEvent(eventData.find((item) => item.slug === slug) || null);
+        }
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  if (event === undefined) {
+    return null;
+  }
+
   if (!event) {
     notFound();
     return null;
